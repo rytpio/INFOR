@@ -2,9 +2,6 @@ import pandas as pd
 from dicts_n_lists import file_import_map
 from math import prod
 
-path_read = r'C:\Users\rytpio\Desktop\Projekty bieżące\AVZ\4473_AVZ.csv'
-path_save = r'C:\Users\rytpio\Desktop\Projekty bieżące\AVZ\4473_AVZ_2.xlsx'
-
 
 def clear_din(x: str):
     x = x.strip()
@@ -17,7 +14,7 @@ def clear_din(x: str):
         # TODO: Zwraca nn domyślnie dla pustych x pomimo ze fkcja zwraca pusty string;
         #  #gdzies w lambda albo replace albo extend leży problem
         if not x:
-            din_txt = '_not_assigned'
+            din_txt = 'not_assigned'
         else:
             din_txt = x
 
@@ -39,25 +36,25 @@ def assign_category_bu_1951939(x: int) -> str:
     return y
 
 
-def lvl_headers(lvl_list: list) -> [list, list, list, list]:
+def lvl_headers(df: pd.DataFrame) -> [list, list, list, list]:
     lvl_1 = []
     lvl_2 = []
     lvl_3 = []
     lvl_4 = []
     lvl1 = lvl2 = lvl3 = lvl4 = None
-    for lvl in lvl_list:
-        if int(lvl) == 0:
+    for lvl in df.itertuples():
+        if int(lvl.level) == 0:
             lvl1 = lvl2 = lvl3 = lvl4 = None
-        if int(lvl) == 1:
+        if int(lvl.level) == 1:
             lvl1 = lvl.description_1
             lvl2 = lvl3 = lvl4 = None
-        if int(lvl) == 2:
+        if int(lvl.level) == 2:
             lvl2 = lvl.description_1
             lvl3 = lvl4 = None
-        if int(lvl) == 3:
+        if int(lvl.level) == 3:
             lvl3 = lvl.description_1
             lvl4 = None
-        if int(lvl) == 4:
+        if int(lvl.level) == 4:
             lvl4 = lvl.description_1
         lvl_1.append(lvl1)
         lvl_2.append(lvl2)
@@ -66,7 +63,7 @@ def lvl_headers(lvl_list: list) -> [list, list, list, list]:
     return lvl_1, lvl_2, lvl_3, lvl_4
 
 
-def import_avz_data(path_read: str, path_save: str):
+def import_avz_data(path_read: str, path_save: str) -> pd.DataFrame:
     """
     Scal pobrane AVZ w jeden plik
     :return:
@@ -88,6 +85,7 @@ def import_avz_data(path_read: str, path_save: str):
     df.replace(r'\r+|\n+|\t+', '', regex=True, inplace=True)
     df['position_number'] = df['position_number'].fillna(0)
     df['pos_nr_category_bu_1951939'] = df['position_number'].apply(lambda x: assign_category_bu_1951939(x))
+    df['quantity'] = df['quantity'].fillna(0)  # TODO: Get and inform on empty values
     df['weight'] = df['weight'].fillna(0)
 
     df.astype(file_import_map.avz_col_type_dict, copy=True)
@@ -120,7 +118,7 @@ def import_avz_data(path_read: str, path_save: str):
     df['din_txt'] = din_txt_list
     df['breadcrumb'] = breadcrumb_list
 
-    lvl_1, lvl_2, lvl_3, lvl_4 = lvl_headers(df['level'].tolist())
+    lvl_1, lvl_2, lvl_3, lvl_4 = lvl_headers(df[['level', 'description_1']])
 
     df['lvl1'] = lvl_1
     df['lvl2'] = lvl_2
@@ -138,15 +136,15 @@ def import_avz_data(path_read: str, path_save: str):
             multiplier_list = [1]
         elif lvl == len(multiplier_list):  # same level = same multiplier; add in case next position is higher level
             multiplier_list = multiplier_list[:lvl - 1]
-            quantity = float(row.avz_quantity) * prod(multiplier_list)
-            multiplier_list.append(float(row.avz_quantity))
+            quantity = float(row.quantity) * prod(multiplier_list)
+            multiplier_list.append(float(row.quantity))
         elif lvl > len(multiplier_list):  # higher level = higher multiplier;
-            quantity = float(row.avz_quantity) * prod(multiplier_list)
-            multiplier_list.append(float(row.avz_quantity))
+            quantity = float(row.quantity) * prod(multiplier_list)
+            multiplier_list.append(float(row.quantity))
         elif lvl < len(multiplier_list):  # lower level = lower multiplier; 5-6-4
             multiplier_list = multiplier_list[:lvl - 1]
-            quantity = float(row.avz_qquantity) * prod(multiplier_list)
-            multiplier_list.append(float(row.avz_quantity))
+            quantity = float(row.quantity) * prod(multiplier_list)
+            multiplier_list.append(float(row.quantity))
 
         quantity_list.append(quantity)
 
@@ -163,5 +161,5 @@ def import_avz_data(path_read: str, path_save: str):
 
     df.to_excel(path_save, index=False)
 
+    return df
 
-import_avz_data(path_read, path_save)

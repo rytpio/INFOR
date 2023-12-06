@@ -8,9 +8,6 @@ def import_ktlkanban(path_ktl_kanban_list: str, path_save: str):
 
     df_ktl_kanban = pd.read_excel(path_ktl_kanban_list, skiprows=2)
 
-    #[ktl_kanban_col_list.append(col) for col in df_ktl_kanban.columns if "L-" in col]  # dodaj kolumny projektów
-    #project_series = [df_ktl_kanban[col] for col in df_ktl_kanban.columns if "L-" in col]
-    #series_names = [col for col in df_ktl_kanban.columns if "L-" in col]
     df_ktl_kanban.columns = [str(x).replace("\n", "").strip() for x in df_ktl_kanban.columns]
     df_ktl_kanban = df_ktl_kanban[file_import_map.ktl_short_col_dict.keys()]
     df_ktl_kanban.rename(mapper=file_import_map.ktl_short_col_dict, inplace=True, axis=1)
@@ -27,7 +24,7 @@ def import_ktlkanban(path_ktl_kanban_list: str, path_save: str):
     # df_ktl_kanban.dropna(subset=['stadler_id'], inplace=True) # zdublowane ilości --- do zestawienia merge ze strukturą ok; do dołożenia jako oddzielan pozycja nieok
 
     #df_ktl_kanban['src'] = 'ktl_kanban_staps'
-    df_ktl_kanban.to_excel(os.path.join(path_save, r'test_ktl_kanban.xlsx'), index=False)
+    #df_ktl_kanban.to_excel(os.path.join(path_save, r'test_ktl_kanban.xlsx'), index=False)
 
 
     return df_ktl_kanban

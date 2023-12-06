@@ -16,26 +16,26 @@ def logfile_lastline(logfile_txt):
         print(f.readline().decode())
 
 
-def import_struktur(standard: str, path_strukt: str, project: str) -> pd.DataFrame():
-    warnings.simplefilter("ignore")
+def import_struktur(project: str, standard: str, path_read: str, path_save: str) -> pd.DataFrame():
+    # warnings.simplefilter("ignore")
+    #
+    # formatter = logging.Formatter(fmt='%(asctime)s %(message)s', datefmt='%d-%m-%Y %H:%M:%S')
+    # handler = logging.FileHandler('AVZ/log.txt', mode='w')
+    # handler.setFormatter(formatter)
+    # screen_handler = logging.StreamHandler(stream=stdout)
+    # screen_handler.setFormatter(formatter)
+    # logger = logging.getLogger('wz')
+    # logger.setLevel(logging.DEBUG)
+    # logger.addHandler(handler)
+    #
+    # logger.info("kisters links started")  # calculate time n rows x time registered
+    # logfile_lastline('log.txt')
 
-    formatter = logging.Formatter(fmt='%(asctime)s %(message)s', datefmt='%d-%m-%Y %H:%M:%S')
-    handler = logging.FileHandler('AVZ/log.txt', mode='w')
-    handler.setFormatter(formatter)
-    screen_handler = logging.StreamHandler(stream=stdout)
-    screen_handler.setFormatter(formatter)
-    logger = logging.getLogger('wz')
-    logger.setLevel(logging.DEBUG)
-    logger.addHandler(handler)
-
-    logger.info("kisters links started")  # calculate time n rows x time registered
-    logfile_lastline('log.txt')
-
-      # STAPS
-    wb = load_workbook(path_strukt, data_only=True, keep_links=True)
+    # STAPS
+    wb = load_workbook(path_read, data_only=True, keep_links=True)
     ws = wb.active
     link_list = []
-    col = list(file_import_map.struct_col_dict_STAPS.keys()).index('Kistersviewerlink') - 1
+    col = list(file_import_map.wz_col_dict_STAPS.keys()).index('Kistersviewerlink') - 1
     for row in range(6, ws.max_row + 1, 1):
         try:
             link_list.append(ws.cell(column=col, row=row).hyperlink.target)
@@ -43,39 +43,38 @@ def import_struktur(standard: str, path_strukt: str, project: str) -> pd.DataFra
             link_list.append(None)
     wb.close()
 
-
-    logger.info('kisters finished \n  wz upload start')
-    df_strukt = pd.read_excel(path_strukt, dtype='string', header=5)  # dodac pierwszy arkusz
+    #  logger.info('kisters finished \n  wz upload start')
+    df_strukt = pd.read_excel(path_read, dtype='string', header=5)  # dodac pierwszy arkusz
     match standard:
         case "STAG":
-            df_strukt.rename(columns=file_import_map.struct_col_dict_STAG, inplace=True)
+            df_strukt.rename(columns=file_import_map.wz_col_dict_STAG, inplace=True)
         case "STAPS":
-            df_strukt.rename(columns=file_import_map.struct_col_dict_STAPS, inplace=True)
-            df_strukt = df_strukt[file_import_map.struct_col_short_list_STAPS]
+            df_strukt.rename(columns=file_import_map.wz_col_dict_STAPS, inplace=True)
+            df_strukt = df_strukt[file_import_map.wz_col_short_list_STAPS]
         case _:
-            logger.error("Brak standardu określonego.")
+            pass
+            #  logger.error("Brak standardu określonego.")
             # TODO: log, catch missing and end
-    logger.info('wz upload finished \n level 123 description')
+    #  logger.info('wz upload finished \n level 123 description')
 
-
-    # lvl(1, 2, 3)
+    #  lvl(1, 2, 3)
     lvl_1 = []
     lvl_2 = []
     lvl_3 = []
     for row in df_strukt.itertuples():
         if int(row.level) == 1:
-            lvl1 = row.struktur_ktxt
+            lvl1 = row.description_1
             lvl2 = lvl3 = None
         if int(row.level) == 2:
-            lvl2 = row.struktur_ktxt
+            lvl2 = row.description_1
             lvl3 = None
         if int(row.level) == 3:
-            lvl3 = row.struktur_ktxt
+            lvl3 = row.description_1
         lvl_1.append(lvl1)
         lvl_2.append(lvl2)
         lvl_3.append(lvl3)
 
-    df_strukt['kistersviewerlink'] = pd.Series(link_list)
+    df_strukt['viewer_link'] = pd.Series(link_list)
     df_strukt['lvl1'] = pd.Series(lvl_1)
     df_strukt['lvl2'] = pd.Series(lvl_2)
     df_strukt['lvl3'] = pd.Series(lvl_3)
@@ -97,19 +96,16 @@ def import_struktur(standard: str, path_strukt: str, project: str) -> pd.DataFra
 
         return result
 
-    logger.info('level described \n car description')
-    df_strukt['car'] = df_strukt['s2ktxt'].apply(lambda x: get_car(str(x)))
-    #df_strukt = df_strukt[df_strukt['car'] != 'x']  # odsiew zbednych
-    df_strukt['car_stadler_id'] = df_strukt.apply(lambda row: f'{row.car}_{row.stadler_id}', axis=1)
+    #  logger.info('level described \n car description')
+    df_strukt['car'] = df_strukt['wz_header'].apply(lambda x: get_car(str(x)))
+    #  df_strukt = df_strukt[df_strukt['car'] != 'x']  # odsiew zbednych
+    df_strukt['car_stadler_id'] = df_strukt.apply(lambda row_x: f'{row_x.car}_{row_x.stadler_id}', axis=1)
     # df_strukt['car_stadler_mnrpath_id'] = df_strukt.apply(lambda row: f'{row.car}_{row.stadler_id}_{row.mnr_path}',
     #                                                       axis=1)
 
-    logger.info('finished & saving')
-    path_save = r'C:\Users\rytpio\Desktop\Projekty bieżące\wz'
-    df_strukt.to_csv(os.path.join(path_save, r'test_strukt_4355.csv'), sep=';', index=False)
-    #df_strukt = df_strukt.to_excel(os.path.join(path_save, r'test_strukt2.xlsx'), engine='xlsxwriter', index=False)
+    #  logger.info('finished & saving')
+    df_strukt.to_excel(path_save, index=False)
 
-    return None #df_strukt
+    return df_strukt
 
 
-import_struktur('STAPS', r'C:\Users\rytpio\Desktop\Projekty bieżące\wz\InforStruktur4423KM_01erNEIN.xlsx', '4423')

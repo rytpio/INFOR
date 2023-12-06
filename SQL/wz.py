@@ -1,20 +1,21 @@
 import pandas as pd
 from dicts_n_lists import reference_map
 from SQL import general_sql
+from import_WZ import import_struktur
 
 
-def wz_struktur_staps(project: str):  # tylko zrzut "nur 01er Listen? NEIN" = aktualny stan materiału który schodzi na WZ
+def wz_struktur_staps(project: str, project_location: str):  # tylko zrzut "nur 01er Listen? NEIN" = aktualny stan materiału który schodzi na WZ
     table_name = 'wz'
     #path = source_dicts.file_path_dicts.get(table_name)
     columns = reference_map.sql_col.get(table_name)
+    path_read = reference_map.file_path_dicts.get(project).get('wz_raw')
+    path_save = reference_map.file_path_dicts.get(project).get('wz_processed')
 
     #general_sql.drop_table(table_name)
     #general_sql.create_table(table_name, table_name, columns)
 
-    # df = import_struktur('STAPS', path, project)
-    path_df = r'C:\Users\rytpio\Desktop\Projekty bieżące\WZ\test_strukt_4503.csv'
-    #df = pd.read_excel(path_df)
-    df = pd.read_csv(path_df, sep=';', low_memory=False)
+    df = import_struktur(project, project_location, path_read, path_save)
+    #  df = pd.read_csv(path_df, sep=';', low_memory=False)
 
     for col in df.columns.tolist():
         if col in ['level', 'sort', 'sort_1']:
@@ -45,4 +46,5 @@ def wz_struktur_staps(project: str):  # tylko zrzut "nur 01er Listen? NEIN" = ak
 
     #general_sql.get_table(table_name)
 
-wz_struktur_staps('4503')
+
+wz_struktur_staps('4473', 'STAPS')

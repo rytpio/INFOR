@@ -21,8 +21,8 @@ wz_col_dict_STAG = {
     'ZeichnNr': 'drawing_id',
     'Zchlink': 'zchlink',  # removed
     'ZeichIndex': 'drawing_revision',
-    'Kistersviewerlink': '3d_viewer_link',
-    'ArtRL': 'art_rl',   # removed
+    'Kistersviewerlink': 'viewer_link',
+    'ArtRL': 'art_rl',  # removed
     'Rlnr': 'rlnr',  # removed
     'Status5': 'status5',  # removed
     'Handl': 'handl',  # removed
@@ -30,11 +30,11 @@ wz_col_dict_STAG = {
     'Eigenfertigung': 'specification_ready',
     'Statustechnik': 'released_to_production',
     'Freigabe': 'freigabe',  # removed
-    'Cadposnr': 'cad_pos_nr',  #TODO: Implement category if correct stk. list number
+    'Cadposnr': 'cad_pos_nr',  # TODO: Implement category if correct stk. list number
     'Sort': 'sort',
     'Zyklus': 'zyklus',  # removed
     'Sort.1': 'sort_1',  # no _1 in STAPS
-    'Mnr Path.1': 'breadcrumb',  # no _1 in STAPS
+    'Mnr Path.1': 'breadcrumb_2',  # no _1 in STAPS
     'Output.1': 'output_1',  # no _1 in STAPS # removed
     'bestellt gesamt': 'bestellt_gesamt',  # removed
     'Bestand': 'bestand',  # removed
@@ -71,11 +71,11 @@ wz_col_dict_STAPS = {
     'Einheit': 'unit',
     'Satzart': 'material_group',
     'Mnr Path': 'breadcrumb',
-    'Output': 'wz_material_category',
+    'Output': 'wz_material_category_1',
     'pos': 'stadler_id',
     # 'Baugruppe': 'baugruppe',
-    'Matlistelink': 'matlistelink',   # removed
-    'Revision': 'revision',   # removed
+    'Matlistelink': 'matlistelink',  # removed
+    'Revision': 'revision',  # removed
     'Struktur.Ktxt': 'description_1',
     'Kurztext 2': 'description_2',
     'Kurztext 3': 'description_3',
@@ -84,7 +84,7 @@ wz_col_dict_STAPS = {
     'ZeichnNr': 'drawing_id',
     'Zchlink': 'zchlink',  # removed
     'ZeichIndex': 'drawing_revision',
-    'Kistersviewerlink': '3d_viewer_link',
+    'Kistersviewerlink': 'viewer_link',
     'ArtRL': 'art_rl',  # removed
     'Rlnr': 'rlnr',  # removed
     'Status5': 'status5',  # removed
@@ -93,14 +93,12 @@ wz_col_dict_STAPS = {
     'Eigenfertigung': 'specification_ready',
     'Statustechnik': 'released_to_production',
     'Freigabe': 'freigabe',  # removed
-    'Cadposnr': 'cad_pos_nr', #TODO: Implement category if true
+    'Cadposnr': 'cad_pos_nr',  # TODO: Implement category if true
     'Sort': 'sort',
     'Zyklus': 'zyklus',  # removed
     'Sort.1': 'sort_1',  # no _1 in STAPS
-    'Mnr Path': 'mnr_path',  # no _1 in STAPS
-    'Output': 'output',  # no _1 in STAPS
     'bestellt gesamt': 'bestellt_gesamt',
-    'Bestand': 'bestand',   # removed
+    'Bestand': 'bestand',  # removed
     'Lieferant nächster': 'lieferant_nachster',  # removed
     'Termin nächster': 'termin_nachster',  # removed
     'Menge nächste': 'menge_nachste',  # removed
@@ -122,7 +120,7 @@ wz_col_dict_STAPS = {
     'ManPos': 'manpos',
     'Vorgänger': 'vorganger',
     'Mod Revision': 'mod_revision',
-    'Baugruppe': 'baugruppe',  # no _1 in STAPS
+    'Baugruppe': 'bg_general',  # no _1 in STAPS
     'Schluessel': 'schluessel'
 }
 wz_col_short_list_STAPS = [
@@ -142,7 +140,7 @@ wz_col_short_list_STAPS = [
     'comment',
     'drawing_id',
     'drawing_revision',
-    '3d_viewer_link',
+    'viewer_link',
     'purchased',
     'specification_ready',
     'released_to_production',
@@ -153,7 +151,6 @@ wz_col_short_list_STAPS = [
     'supplier',
     'supplier_id',
     'wz_material_category_2',
-    'bg_general'
 ]
 
 #   ///////////////////// INFOR
@@ -273,7 +270,7 @@ infor_col_dict_STAPS = {
     # 'Brutto': 'brutto', STAG column   # removed
     'Status4': 'status4',  # removed
     'Freigabe': 'zdesc',  # STAPS column    # removed
-    'Zustand': 'zustand',  # STAPS column    # removed
+    'Zustand': 'order_status',  # STAPS column    # removed
     # 'Lager': 'lager', STAG column
     # 'Zdesc': 'zdesc', STAG column
     'Sachbearbeiter': 'buyer',
@@ -282,7 +279,7 @@ infor_col_dict_STAPS = {
     'Status1': 'status1',  # removed
     'Preis': 'unit_price',
     'F Preisbasis': 'unit_price_basis',
-    'Kurztext 2': 'supplier',  # STAPS
+    'Kurztext 2': 'supplier_2',  # STAPS
     # 'Addname1': 'addname1', STAG
     'Ext Art Nr': 'supplier_id',
     'Createdate': 'order_create_date',
@@ -348,7 +345,7 @@ infor_col_dict_STAPS_single = {
     'Usbemerkung 1 Pos': 'to_remove8',  # removed
     'Bemerkung': 'comment',
 }
-infor_col_dict_short = [
+infor_col_list_short = [
     'project',
     'order_id',
     'order_status',
@@ -405,7 +402,7 @@ avz_col_dict = {
     'Dok Freigeber': 'doc_approved_by',
     'Dok Freigabe': 'doc_approved',
     'Schweissfreigeber': 'schweiss_approved_by',
-    'Schweissfreigabe': 'schweiss_approved_by',
+    'Schweissfreigabe': 'schweiss_approved_date',
     'Projekt Nr': 'project',
     'Projektname': 'project_name',
     'Schemapos': 'schematic_position',
@@ -417,7 +414,7 @@ avz_col_dict = {
     'Hersteller': 'supplier',
     'Hersteller Art Nr': 'supplier_article_id',
     'Hersteller Typ': 'supplier_type',
-    'Hersteller Art Idx': 'supplier_art_idx',
+    'Hersteller Art Idx': 'supplier_article_idx',
     'Gewicht': 'weight',
     'Bemerkung': 'comment',
     'Dok Class Id': 'doc_class_id',
@@ -427,7 +424,7 @@ avz_col_dict = {
 avz_col_short_list = [
     'avz_struct_index',
     'level',
-    'DIN',
+    'din',
     'unit',
     'quantity',
     'stadler_id',
@@ -451,9 +448,9 @@ avz_col_short_list = [
     'root_article',
     'root_version',
     'supplier',
-    'supplier_article_nr',
+    'supplier_article_id',
     'supplier_type',
-    'supplier_art_idx',
+    'supplier_article_idx',
     'weight',
     'comment',
     'doc_class_id',
@@ -462,7 +459,6 @@ avz_col_short_list = [
 avz_col_type_dict = {
     'avz_struct_index': int,
     'level': int,
-    'anzahl': float,  # TODO: Possible mistake
     'quantity': int,
     'weight': float
 }  # done
@@ -572,6 +568,43 @@ device_list_stapr_e3_short_col_dict = {  # i tak dla kazdego projektu do stworze
     'Ordering Number': 'order',
     'State': 'status'
 }  # done
+device_dict_project = {
+    '4473': {
+        'col_change_dict': {
+            'schema_position': 'schematic_position',
+            'h_u': 'h_u',
+            'stk_a': 'stk_a',
+            'stk_b': 'stk_b',
+            'stk_c': 'stk_c',
+            'stk_d': 'stk_d',
+            'stk_e': 'stk_e',
+            'bezeichnung_deutsch': 'description_1',
+            'bg': 'bg',
+            'din': 'din',
+            'cat_1': 'main_group',
+            'cat_2': 'secondary_group',
+            'typ': 'type',
+            'nenndaten': 'description_2',
+            'massbilder_bestellnummer': 'supplier_id',
+            'lieferant_hersteller': 'supplier',
+            'einbau_ort': 'car_area',
+            'schema': 'schematic',
+            'bemerkungen': 'comment',
+            'stadlerid': 'stadler_id',
+            'be_status': 'status',
+            'verantwortlich': 'person_responsible'},
+        'col_complete_list': [
+            'schematic_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'stk_f', 'stk_g', 'stk_h',
+            'stk_i', 'stk_j', 'stk_k', 'stk_l', 'stk_m', 'stk_n', 'stk_o', 'description_1', 'bg', 'din',
+            'main_group', 'secondary_group', 'type', 'description_2', 'supplier_id', 'supplier', 'car_area',
+            'schematic', 'comment', 'stadler_id', 'status', 'person_responsible'
+        ],
+        'col_cutout_list': [
+            'schema_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'bezeichnung_deutsch',
+            'bg', 'din', 'cat_1', 'cat_2', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
+            'einbau_ort', 'schema', 'bemerkungen', 'stadlerid', 'be_status', 'verantwortlich']
+    }
+}
 
 # ////////////////////// ZVZ
 zvz_col_list = [

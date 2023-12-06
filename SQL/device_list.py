@@ -1,54 +1,28 @@
 import pandas as pd
 from dicts_n_lists import reference_map
+from dicts_n_lists import file_import_map
 from SQL import general_sql
 
 
 def device_list(project: str):
     """"""
-    # TODO: Porządek w słownikach apparateliste
     table_name = 'device_list'
-    path = reference_map.file_path_dicts.get(table_name)
+    path = reference_map.file_path_dicts.get(project).get(table_name)
     columns = reference_map.sql_col.get(table_name)
     fk_columns = reference_map.sql_fk_col.get(table_name)
+    col_change_dict = file_import_map.device_dict_project.get(project).get('col_change_dict')
+    col_complete_list = file_import_map.device_dict_project.get(project).get('col_complete_list')
+    col_cutout_list = file_import_map.device_dict_project.get(project).get('col_cutout_list')
 
-    col_change_dict = {
-        'schema_position': 'schematic_position',
-        'h_u': 'h_u',
-        'stk_a': 'stk_a',
-        'stk_b': 'stk_b',
-        'stk_c': 'stk_c',
-        'stk_d': 'stk_d',
-        'stk_e': 'stk_e',
-        'bezeichnung_deutsch': 'description_1',
-        'bg': 'bg',
-        'din': 'din',
-        'cat_1': 'main_group',
-        'cat_2': 'secondary_group',
-        'typ': 'type',
-        'nenndaten': 'description_2',
-        'massbilder_bestellnummer': 'supplier_id',
-        'lieferant_hersteller': 'supplier',
-        'einbau_ort': 'vehicle_area',
-        'schema': 'schematic',
-        'bemerkungen': 'comment',
-        'stadler_id': 'stadler_id',
-        'status': 'status',
-        'verantwortlich': 'person_responsible'
-    }
+
     translate_dict = {'.': '_',
                       '/': '_',
                       ' ': '_',
                       '-': '_'
                       }
-    col_complete_list = [
-        'schematic_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'stk_f', 'stk_g', 'stk_h', 'stk_i',
-        'stk_j', 'stk_k', 'stk_l', 'stk_m', 'stk_n', 'stk_o', 'description_1', 'bg', 'din',
-        'main_group', 'secondary_group', 'type', 'description_2', 'supplier_id', 'supplier', 'vehicle_area',
-        'schematic', 'comment', 'stadler_id', 'status', 'person_responsible'
-    ]
 
-    # general_sql.drop_table_cascade(table_name)
-    # general_sql.create_table(table_name, table_name, columns | fk_columns)
+    general_sql.drop_table_cascade(table_name)
+    general_sql.create_table(table_name, table_name, columns | fk_columns)
 
     df = pd.read_excel(path)
     df.columns = ([x.lower().translate(x.maketrans(translate_dict)).
@@ -56,9 +30,8 @@ def device_list(project: str):
                    replace('___', '_').replace('__', '_').
                    replace('ä', 'a') for x in df.columns.tolist()])
 
-    df = df[['schema_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'bezeichnung_deutsch',
-             'bg', 'din', 'cat_1', 'cat_2', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
-             'einbau_ort', 'schema', 'bemerkungen', 'stadler_id', 'baugruppe', 'status', 'verantwortlich']]
+    df = df[col_cutout_list]
+
     df.rename(columns=col_change_dict, inplace=True)
     sum_col_list = [x for x in df.columns if 'stk_' in x[:4]]
     df['stk_sum'] = df[sum_col_list].sum(axis=1)
@@ -102,7 +75,8 @@ def device_list(project: str):
     # general_sql.drop_table_content(table_name)  # usun stare wpisy
     general_sql.insert_into_table(table_name, df, columns)
 
-    general_sql.get_table(table_name, True)
+
+    #general_sql.get_table(table_name, True)
 
 
 device_list("4473")

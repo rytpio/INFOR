@@ -6,18 +6,17 @@ from SQL import general_sql
 def cable_quantity(project: str):
     """ cable position quantities for project """
     table_name = 'cable_quantity'
-    path = reference_map.file_path_dicts.get(table_name)
-    path = reference_map.file_path_dicts.get('')
+    path = reference_map.file_path_dicts.get(project).get(table_name)
     columns = reference_map.sql_col.get(table_name)
 
-    # general_sql.drop_table(table_name)
-    # general_sql.create_table(table_name, table_name, columns)
+    general_sql.drop_table(table_name)
+    general_sql.create_table(table_name, table_name, columns)
 
     df = pd.read_excel(path)
     df.drop_duplicates(subset=['stadler_id'], inplace=True)
     df.dropna(subset=['stadler_id'], inplace=True)
     df = df.convert_dtypes()  # remove issues with psycopg2 "can't adapt type 'numpy.int64'"
-
+    df['project'] = project
     # DOTO: SQL zapytanie pobierające dane tylko 1 producenta
     # DOTO: SQL zestawienie produktów w matlist (rozgraniczyć na podstawie dostawcy H+S, L+S-jak inny to H+S)
     # zamówionych i suma szacowanych
@@ -41,7 +40,7 @@ def cable_quantity(project: str):
     # general_sql.get_table(table_name)
 
 
-def cable_data(project: str):
+def cable_data():
     """ cable position details"""
     table_name = 'cable_data'
     path = reference_map.file_path_dicts.get(table_name)
@@ -49,16 +48,16 @@ def cable_data(project: str):
     fk_columns = reference_map.sql_fk_col.get(table_name)
 
     # general_sql.drop_table(table_name)
-    general_sql.create_table(table_name, table_name, columns | fk_columns)
+    general_sql.create_table(table_name, table_name, columns)# | fk_columns)
 
     df = pd.read_excel(path)
     df.drop_duplicates(subset=['stadler_id', 'supplier'],
                        inplace=True)  # TODO: duble, ewentualnie do wylapania i raportu
     df.dropna(subset=['stadler_id'], inplace=True)
 
-    df_cable = general_sql.get_table_col('cable_quantity',
-                                         ['id'] + list(reference_map.sql_col.get('cable_quantity').keys()))
-    df['fk_cable_quantity'] = df['stadler_id'](lambda x: general_sql.one_step_fk(df_cable, 'stadler_id', x))
+    # df_cable = general_sql.get_table_col('cable_quantity',
+    #                                      ['id'] + list(reference_map.sql_col.get('cable_quantity').keys()))
+    # df['fk_cable_quantity'] = df['stadler_id'](lambda x: general_sql.one_step_fk(df_cable, 'stadler_id', x))
 
     # general_sql.drop_table_content(table_name) #usun stare wpisy
     general_sql.insert_into_table(table_name, df, columns)
@@ -104,6 +103,7 @@ def cable_relationship():
     general_sql.get_table(table_name)
 
 
-cable_quantity('4473')
-# cable_data("4423")
-# cable_relationship()
+#cable_quantity('4473')
+cable_relationship()
+#cable_data()
+
