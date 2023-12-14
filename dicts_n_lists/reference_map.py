@@ -10,23 +10,314 @@ file_path_dicts = {
     'ktl_kanban_stag': f'{default_data_path}\\KTL_KANBAN\\kanban_ktl_stag_stadlerID_list.xlsx',
     'cable_data': f'{default_data_path}\\CABLE\\cable_data.xlsx',
 
+    '4292': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4292_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4292_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'',#no wz OLD PROJECT
+             # 'wz_processed': f'',#no wz OLD PROJECT
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4355': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4355_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4355_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'',#no wz OLD PROJECT
+             # 'wz_processed': f'',#no wz OLD PROJECT
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4382': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4382_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4382_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'',#no wz OLD PROJECT
+             # 'wz_processed': f'',#no wz OLD PROJECT
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4423': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4423_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4423_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
+             # 'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             'fz_max': 61
+             },
+    '4431': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4431_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4431_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             'fz_max': 21
+             },
+    '4432': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4432_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4432_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4433': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4433_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4433_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
+             # 'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
     '4473': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4473_MATERIAL_LIST.xlsx',
-             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4473_MATERIAL_LIST_EXPLODED.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4473_MATERIAL_LIST_EXPLODED.csv',
              'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
              'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
              'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
              'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
              'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
              'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             'fz_max': 12
              },
+    '4499': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4499_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4499_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
+             # 'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4503': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4503_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4503_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
+             # 'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             'fz_max': 50
+             },
+    '4533': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4533_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4533_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
+             # 'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4541': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4541_MATERIAL_LIST.xlsx',  # new - not full
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4541_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
+             # 'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4542': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4542_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4542_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
+             # 'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4547': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4547_MATERIAL_LIST.xlsx',  # new-not full
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4547_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             # 'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
+             # 'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             'fz_max': 18
+             },
+    '10308100': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\10308100_MATERIAL_LIST.xlsx',
+                 # new-not full
+                 'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\10308100_MATERIAL_LIST_EXPLODED.csv',
+                 # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
+                 # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+                 # 'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
+                 # 'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
+                 # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+                 # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+                 },
 
-    # '4423': {'materialliste': r'C:\Users\rytpio\Downloads\4423_MateriallisteSTAPS_weekly_DWH_9.05.2023.xlsx',
-    #          'avz': r'C:\Users\rytpio\Desktop\Projekty bieżące\NAKA\AVZ_test.xlsx',
-    #          'infor_struct': r'C:\Users\rytpio\Desktop\Projekty '
-    #                          r'bieżące\4423_TEST\other_data\InforStruktur4423KM_01erNEIN.xlsx',
-    #          'apparateliste': r'C:\Users\rytpio\Desktop\Projekty bieżące\APPARATELISTE\4473_apparateliste_work.xlsx',
-    #          'kabel_quantity': r'C:\Users\rytpio\Desktop\Projekty bieżące\Kabel_estimations\kabel_4473.xlsx'
-    #          }
+    '4497': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4497_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4497_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4454': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4454_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4454_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4413': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4413_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4413_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             'fz_max': 10
+             },
+    '4450': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4450_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4450_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4453': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4453_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4453_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4465': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4465_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4465_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '2371': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\2371_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\2371_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4336': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4336_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4336_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4337': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4337_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4437_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4341': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4341_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4341_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4353': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4353_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4353_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4354': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4354_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4354_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4362': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4362_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4362_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4388': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4388_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4388_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             'fz_max': 40
+             },
+    '4421': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4421_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4421_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             'fz_max': 20
+             },
+    '4444': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4444_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4444_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             'fz_max': 30
+             },
+    '4468': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4468_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4468_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
+    '4471': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4471_MATERIAL_LIST.xlsx',
+             'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4471_MATERIAL_LIST_EXPLODED.csv',
+             # 'avz_raw': f'',
+             # 'avz_processed': f'',
+             # 'wz_raw': f'',#no wz STAMI
+             # 'wz_processed': f'',#no wz STAMI
+             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             },
 }
 
 sql_col = {

@@ -123,8 +123,14 @@ def create_table(table_name: str, id_name: str, col_dict: dict) -> bool:
 def insert_into_table(table_name: str, df: pd.DataFrame, columns: dict) -> bool:
     conn = connect()
     cursor = conn.cursor()
-    # print(df)
+
     df = df[columns.keys()]
+    #tuples = [tuple(x) for x in df.to_numpy()]
+    # tuples = []
+    # for x in df.to_numpy():
+    #     tuples.append(tuple(x))
+    # tuples = set(tuples)
+    # tuples = list(tuples)
     tuples = list(set([tuple(x) for x in df.to_numpy()]))
     cols = ','.join(list(df.columns))
     query = f'INSERT INTO {table_name}({cols}) VALUES ({",".join(["%s"] * len(df.columns))})'

@@ -14,6 +14,7 @@ from import_materialliste import fz_list
 from import_materialliste import fz_correction
 from import_materialliste import order_category
 
+
 class TestReferences(unittest.TestCase):
     """Test columns reference lists and dicts for import from files to SQL with steps"""
 
@@ -235,24 +236,23 @@ class TestFunctions(unittest.TestCase):
 
     def test_fz_list(self):
         """ fz_list MATERIAL LIST"""
-        self.assertEqual(fz_list(0, 0), [0], 'MATERIAL_LIST FZ_LIST')
-        self.assertEqual(fz_list(0, 2), [0, 1, 2], 'MATERIAL_LIST FZ_LIST')
-        self.assertNotEqual(fz_list(0, -2), [0, 1], 'MATERIAL_LIST FZ_LIST')
-        self.assertNotEqual(fz_list(2, 1), [1, 2], 'MATERIAL_LIST FZ_LIST')  # lucky guess correction
-        self.assertNotEqual(fz_list(-2, 0), [0, 2], 'MATERIAL_LIST FZ_LIST')  # lucky guess correction
-        self.assertNotEqual(fz_list(-2, 4), [2, 4], 'MATERIAL_LIST FZ_LIST')  # lucky guess correction
+        self.assertEqual(fz_list(0, 0), '0', 'MATERIAL_LIST FZ_LIST')
+        self.assertEqual(fz_list(1, 1), '1', 'MATERIAL_LIST FZ_LIST')
+        self.assertEqual(fz_list(0, 2), '0, 1, 2', 'MATERIAL_LIST FZ_LIST')
+        self.assertNotEqual(fz_list(2, 1), '1, 2', 'MATERIAL_LIST FZ_LIST')  # lucky guess correction
 
-        #fz_correction
+        # fz_correction
 
     def test_fz_correction(self):
         """ fz_correction MATERIAL LIST"""
-        self.assertEqual(list(fz_correction(1, 2)), [1, 2], 'fz_correction MATERIAL LIST')
-        self.assertEqual(list(fz_correction(2, 1)), [1, 2], 'fz_correction MATERIAL LIST')
-        self.assertEqual(list(fz_correction(0.5, 1)), [0, 1], 'fz_correction MATERIAL LIST')
-        self.assertEqual(list(fz_correction(0.5, 0.5)), [0, 0], 'fz_correction MATERIAL LIST')
-        self.assertEqual(list(fz_correction(-1, 1)), [1, 1], 'fz_correction MATERIAL LIST')
-        self.assertEqual(list(fz_correction(-1, -2)), [1, 2], 'fz_correction MATERIAL LIST')
-        self.assertEqual(list(fz_correction(-2, -1)), [1, 2], 'fz_correction MATERIAL LIST')
+        self.assertEqual(list(fz_correction(1, 2, 2)), [1, 2], 'fz_correction MATERIAL LIST')
+        self.assertEqual(list(fz_correction(2, 1, 2)), [1, 2], 'fz_correction MATERIAL LIST')
+        self.assertEqual(list(fz_correction(0.5, 1, 1)), [0, 1], 'fz_correction MATERIAL LIST')
+        self.assertEqual(list(fz_correction(0.5, 0.5, 3)), [0, 0], 'fz_correction MATERIAL LIST')
+        self.assertEqual(list(fz_correction(-1, 1, 2)), [1, 1], 'fz_correction MATERIAL LIST')
+        self.assertEqual(list(fz_correction(-1, -2, 2)), [1, 2], 'fz_correction MATERIAL LIST')
+        self.assertEqual(list(fz_correction(-2, -1, 4)), [1, 2], 'fz_correction MATERIAL LIST')
+        self.assertEqual(list(fz_correction(-2, -1, 1)), [1, 1], 'fz_correction MATERIAL LIST')
 
 
 # # def suite():

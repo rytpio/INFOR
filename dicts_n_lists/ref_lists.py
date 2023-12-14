@@ -101,6 +101,44 @@ material_list_nrc_ktxt = (
     'AR00'
 )
 
+eurostat_indicator_list = (
+    'C13',
+    'C20',
+    'C22',
+    'C27',
+    'C203',
+    'C231',
+    'C241',
+    'C245',
+    'C251',
+    'C256',
+    'C271',
+    'C272',
+    'C274',
+    'C302',
+    'C1621',
+    'C2011',
+    'C2219',
+    'C2221',
+    'C2314',
+    'C2442',
+    'C2444',
+    'C2511',
+    'C2512',
+    'C2561',
+    'C2562',
+    'C2591',
+    'C2593',
+    'C2594',
+    'C2711',
+    'C2712',
+    'C2732',
+    'C2813',
+    'C2815',
+    'C2825',
+    'C2931'
+)
+
 din_avz_test_list_raw = (
     '', '_Allgemein', '_Brandschutz', '_Dokumentation', 'A A Fahrzeug komplett', 'B A Fahrzeugkasten',
     'B B Untergestell', 'B C Laengswaende', 'B D Dach', 'B E Fahrzeugkopf', 'B F Stirnwaende',
