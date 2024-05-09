@@ -35,4 +35,4 @@ def avz_knot_relationship(project: str) -> None:
     # print(general_sql.get_table(table_name))
 
 
-avz_knot_relationship('4473')
+avz_knot_relationship('4503')

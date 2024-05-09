@@ -603,6 +603,41 @@ device_dict_project = {
             'schema_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'bezeichnung_deutsch',
             'bg', 'din', 'cat_1', 'cat_2', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
             'einbau_ort', 'schema', 'bemerkungen', 'stadlerid', 'be_status', 'verantwortlich']
+    },
+    '4547': {
+        'col_change_dict': {
+            'schema_position': 'schematic_position',
+            'h_u': 'h_u',
+            'stk_a': 'stk_a',
+            'stk_b': 'stk_b',
+            'stk_c': 'stk_c',
+            'stk_d': 'stk_d',
+            'bezeichnung_deutsch': 'description_1',
+            'bg': 'bg',
+            'din': 'din',
+            'cat_1': 'main_group',
+            'cat_2': 'secondary_group',
+            'typ': 'type',
+            'nenndaten': 'description_2',
+            'massbilder_bestellnummer': 'supplier_id',
+            'lieferant_hersteller': 'supplier',
+            'einbau_ort': 'car_area',
+            'schema': 'schematic',
+            'bemerkungen': 'comment',
+            'stadlerid': 'stadler_id',
+            'be_status': 'status',
+            'verantwortlich': 'person_responsible'},
+        'col_complete_list': [
+            'schematic_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'stk_f', 'stk_g', 'stk_h',
+            'stk_i', 'stk_j', 'stk_k', 'stk_l', 'stk_m', 'stk_n', 'stk_o',
+            'description_1', 'bg', 'din',
+            'main_group', 'secondary_group', 'type', 'description_2', 'supplier_id', 'supplier', 'car_area',
+            'schematic', 'comment', 'stadler_id', 'status', 'person_responsible'
+        ],
+        'col_cutout_list': [
+            'schema_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'bezeichnung_deutsch',
+            'bg', 'din', 'cat_1', 'cat_2', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
+            'einbau_ort', 'schema', 'bemerkungen', 'stadlerid', 'be_status', 'verantwortlich']
     }
 }
 
@@ -676,29 +711,68 @@ zvz_col_short_list = [
     'detail',
     'breadcrumb'
 ]  # not_used
+zvz_col_bogie_short_list = [
+    'BG',
+    'DIN',
+    'DIN_unterbaugruppe',
+    'haupt_benennung',
+    #'zusatz_benennung',
+    #'stand',
+    'bemerkungen',
+    #'mehrfachverwendung',
+    # 'draw_link',
+    'draw_id',
+    'pos_oder_RUB',
+    'draw_index',
+    # 'stk_link',
+    'stk_id',
+    #'datum',
+    'B_menge',
+    'C_menge',
+    'A_menge',
+    'total_1fz',
+    #'serie_freigabe15_fz',
+    'status',
+    'car',
+    'level',
+    'detail',
+    'breadcrumb'
+]  # not_used
 zvz_bogie_col_list = [
     'leer1',
     'ablage_gebiet',
     'BG',
     'DIN',
     'DIN_unterbaugruppe',
-    'stufe_0', 'stufe_1', 'stufe_2', 'stufe_3', 'stufe_4', 'stufe_5',
+    'leer2',#KRK2
+    #'stufe_0',
+    'stufe_1', 'stufe_2', 'stufe_3', 'stufe_4', 'stufe_5',
     'stufe_6', 'stufe_7', 'stufe_8', 'stufe_9', 'stufe_10',
     'stufe_11', 'stufe_12',
     'draw_id',
     'pos_oder_RUB',
     'stk_id',
     'haupt_benennung',
+    'leer3',#KRK2
     'status',
-    'bemerkungen ',
+    'bemerkungen',
+    'LDG', #KRK2
+    'ZG', #KRK2
+    'SERIE', #KRK2
     'A_menge',
     'C_menge',
     'B_menge',
     'total_1fz',
-    '15_fz',
+    '58_fz',
+    'A_mengev2', #KRK2
+    'C_mengev2', #KRK2
+    'B_mengev2', #KRK2
+    'total_1fzv2', #KRK2
+    '2_fzv2', #KRK2
+    '60_fz',#KRK2
     'fertigungs freigegeben',
-    'zum_bayer_geschickt',
-    'ändern_zum_bayer_geschickt',
+    # 'zum_bayer_geschickt',
+    # 'ändern_zum_bayer_geschickt',
     'brandschutzanforderung',
     'ib',
     'aenderungsbereich',

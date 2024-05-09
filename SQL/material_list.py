@@ -51,14 +51,14 @@ def material_list(project: str, standard: str):
     general_sql.insert_into_table(table_name, df, columns)
 
 
-#material_list("4547", "STAPS_single")
+material_list("4503", "STAPS_single")
 
 #
-def import_many():
-    many = ['4388', '4413', '4421', '4423','4431','4444','4473','4503','4547']
-    for proj in many:
-        print(proj)
-        material_list(str(proj), "STAPS_single")
-
-
-import_many()
+# def import_many():
+#     many = ['4388', '4413', '4421', '4423','4431','4444','4473','4503','4547']
+#     for proj in many:
+#         print(proj)
+#         material_list(str(proj), "STAPS_single")
+#
+#
+# import_many()

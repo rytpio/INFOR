@@ -5,14 +5,19 @@ import import_avz
 
 
 def avz(project: str) -> None:
+    '''
+    opens raw, process and save as processed, import to sql
+    :param project:
+    :return:
+    '''
     table_name = 'avz'
     columns = reference_map.sql_col.get(table_name)
     fk_columns = reference_map.sql_fk_col.get(table_name)
     path_read = reference_map.file_path_dicts.get(project).get('avz_raw')
     path_save = reference_map.file_path_dicts.get(project).get('avz_processed')
 
-    general_sql.drop_table_cascade(table_name)
-    general_sql.create_table(table_name, table_name, columns | fk_columns)
+    # general_sql.drop_table_cascade(table_name)
+    # general_sql.create_table(table_name, table_name, columns | fk_columns)
 
     df = import_avz.import_avz_data(path_read, path_save)
 
@@ -35,7 +40,7 @@ def avz(project: str) -> None:
 
     # general_sql.get_table(table_name)
 
-avz('4473')
+avz('4547')
 
 # Milesteine1 - Wgranie wszystkiego do SQL !ok
 # Milesteine2 - Proste zrzuty jako widoki dla backend !ok

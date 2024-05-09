@@ -173,5 +173,6 @@ def import_infor_data(project: str, standard: str, path_material: str, path_save
     #df_material.to_excel(path_save, index=False) #chyba się coś przywiesza 4503; 4499
     # df_material[df_material['group']].sort_values(by=['beleg_nr_best', 'acppart_preis'], ascending=False). \
     #     to_excel(path_save, index=False)
+    df_material['fz'] = df_material['fz'].apply(lambda x: str(x).strip())
     df_material = df_material.fillna('')
     return df_material

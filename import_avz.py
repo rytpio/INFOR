@@ -92,7 +92,7 @@ def import_avz_data(path_read: str, path_save: str) -> pd.DataFrame:
     df.sort_values(by=['root_article', 'avz_struct_index', 'level', 'position_number'], inplace=True)
 
     breadcrumb_list = []
-    breadcrumb = ''
+    breadcrumb = []
     din_list = []
     din_txt_list = []
     din = ''
@@ -162,4 +162,3 @@ def import_avz_data(path_read: str, path_save: str) -> pd.DataFrame:
     df.to_excel(path_save, index=False)
 
     return df
-

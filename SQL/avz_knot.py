@@ -18,5 +18,5 @@ def avz_knot(project: str, file_path: str) -> None:
     # print(general_sql.get_table(table_name))
 
 
-path = r'C:\Users\rytpio\Desktop\Projekty bieżące\AVZ\4473_AVZ_knots.xlsx'
-avz_knot('4473', path)
+path = r'C:\Users\rytpio\Desktop\Projekty bieżące\AVZ\4503_AVZ_knots.xlsx'
+avz_knot('4503', path)
