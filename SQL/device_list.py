@@ -21,8 +21,8 @@ def device_list(project: str):
                       '-': '_'
                       }
 
-    # general_sql.drop_table_cascade(table_name)
-    # general_sql.create_table(table_name, table_name, columns | fk_columns)
+    #general_sql.drop_table_cascade(table_name)
+    #general_sql.create_table(table_name, table_name, columns | fk_columns)
 
     df = pd.read_excel(path)
     df.columns = ([x.lower().translate(x.maketrans(translate_dict)).

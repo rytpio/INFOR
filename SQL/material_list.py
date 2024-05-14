@@ -51,7 +51,7 @@ def material_list(project: str, standard: str):
     general_sql.insert_into_table(table_name, df, columns)
 
 
-material_list("4503", "STAPS_single")
+material_list("4547", "STAPS_single")
 
 #
 # def import_many():

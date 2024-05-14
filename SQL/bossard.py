@@ -11,8 +11,8 @@ def bossard_price_staps():
     columns = reference_map.sql_col.get(table_name)
     fk_columns = reference_map.sql_fk_col.get(table_name)
 
-    general_sql.drop_table(table_name)
-    general_sql.create_table(table_name, table_name, columns | fk_columns)
+    #general_sql.drop_table(table_name)
+    #general_sql.create_table(table_name, table_name, columns | fk_columns)
 
     df = pd.read_excel(path)
     df.drop_duplicates(subset=['stadler_id'], inplace=True)
@@ -35,19 +35,24 @@ def bossard_stock_staps():
     columns = reference_map.sql_col.get(table_name)
     short_columns = file_import_map.bossard_short_col_dict
 
-    general_sql.drop_table(table_name)
-    general_sql.create_table(table_name, table_name, columns)
-    df = pd.read_excel(path, header=5, usecols='A:AD')
-    df.columns = [x.lower().replace(' ', '_').replace('.', '_') for x in df.columns.tolist()]
+    #general_sql.drop_table(table_name)
+    #general_sql.create_table(table_name, table_name, columns)
+
+
+    #df = pd.read_excel(path)
+    #df.to_excel(path, encoding='utf-8')
+    df = pd.read_excel(path, header=5, usecols='A:AD',)
+    df.columns = [str(x).lower().replace(' ', '_').replace('.', '_') for x in df.columns.tolist()]
     df = df[list(short_columns.keys())]
     df.rename(columns=short_columns, inplace=True)
     df.drop_duplicates(subset=['stadler_id'], inplace=True)
     df.dropna(subset=['stadler_id'], inplace=True)
 
     general_sql.drop_table_content(table_name)  # usun stare wpisy
+
     general_sql.insert_into_table(table_name, df, columns)
 
-    # general_sql.get_table(table_name)
+    general_sql.get_table(table_name)
 
 
 bossard_stock_staps()

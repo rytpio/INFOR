@@ -28,7 +28,7 @@ def one_step_fk(df: pd.DataFrame, searched1: str, var1: str):
 
 def connect():
     conn = psycopg2.connect(
-        database="postgres", user='postgres', password='', host='localhost', port='5432'
+        database="MY_TEST", user='admin', password='', host='localhost', port='5432'
     )
     return conn
 

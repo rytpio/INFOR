@@ -12,7 +12,7 @@ def wz_struktur_staps(project: str, project_location: str):  # tylko zrzut "nur 
     path_save = reference_map.file_path_dicts.get(project).get('wz_processed')
 
     #general_sql.drop_table(table_name)
-    #general_sql.create_table(table_name, table_name, columns)
+    general_sql.create_table(table_name, table_name, columns)
 
     df = import_struktur(project, project_location, path_read, path_save)
     #  df = pd.read_csv(path_df, sep=';', low_memory=False)
@@ -44,7 +44,7 @@ def wz_struktur_staps(project: str, project_location: str):  # tylko zrzut "nur 
     # general_sql.drop_table_content(table_name) #usun stare wpisy
     general_sql.insert_into_table(table_name, df, columns)
 
-    #general_sql.get_table(table_name)
+    general_sql.get_table(table_name)
 
 
 wz_struktur_staps('4547', 'STAPS')

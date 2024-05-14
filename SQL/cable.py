@@ -105,6 +105,6 @@ def cable_relationship():
 
 # for x in ['4382', '4355', '4421', '4423', '4433', '4444', '4468', '4541', '4542', '4547', '4577', '4388']:
 #     cable_quantity(x)
-#cable_quantity('4547')
+cable_quantity('4547')
 # cable_relationship()
-cable_data()
+#cable_data()

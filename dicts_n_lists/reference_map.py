@@ -3,9 +3,9 @@ from dicts_n_lists import sql_import_map
 # TODO: Rozbić ścieżki na poszczególne projekty lub zlikwidować całkowicie
 default_data_path = r'C:\Users\rytpio\Desktop\Projekty bieżące\DATA'
 file_path_dicts = {
-    'currency': f'{default_data_path}\\Currency.xlsx',
+    'currency_data': f'{default_data_path}\\Currency.xlsx',
     'bossard_price_staps': f'{default_data_path}\\BOSSARD\\bossard_stadlerID_list.xlsx',
-    'bossard_kanban_staps': f'{default_data_path}\\BOSSARD\\Bossard 04.12.2023.xlsx',
+    'bossard_kanban_staps': f'{default_data_path}\\BOSSARD\\Bossard 17.04.2024.xlsx',
     'ktl_kanban_staps': f'{default_data_path}\\KTL_KANBAN\\ktl_kanban_staps.xlsx',
     'ktl_kanban_stag': f'{default_data_path}\\KTL_KANBAN\\kanban_ktl_stag_stadlerID_list.xlsx',
     'cable_data': f'{default_data_path}\\CABLE\\cable_data.xlsx',
@@ -331,6 +331,7 @@ file_path_dicts = {
 }
 
 sql_col = {
+    'currency_data': sql_import_map.currency_sql_col_dict,
     'material_list': sql_import_map.material_list_sql_col_dict,
     'material_list_wz_relationship': sql_import_map.material_list_wz_relationship_sql_col_dict,
     'avz': sql_import_map.avz_sql_col_dict,

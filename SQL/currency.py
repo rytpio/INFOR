@@ -11,7 +11,7 @@ def import_currency_calc():
     df.sort_values(by=[list(sql_import_map.currency_sql_col_dict.keys())[2]], ascending=False, inplace=True)  # date
 
     # print(df)
-    #general_sql.create_table(table_name, table_name, sql_import_map.currency_sql_col_dict)
+    general_sql.create_table(table_name, table_name, sql_import_map.currency_sql_col_dict)
 
     general_sql.drop_table_content(table_name)
     general_sql.insert_into_table(table_name, df, sql_import_map.currency_sql_col_dict)
