@@ -89,7 +89,7 @@ def fz_correction(von:str, bis:str, bis_project=0) -> [int, int]:
 
     return start, end
 
-def fz_list(von, bis) -> list:
+def fz_list(von, bis) -> str:
     fz = []
     for x in range(von, bis + 1):
         fz.append(str(x))
@@ -170,9 +170,14 @@ def import_infor_data(project: str, standard: str, path_material: str, path_save
     df_material['fz'] = df_material['fz_list'].apply(lambda x: str(x).split(sep=','))
     df_material = df_material.explode(column='fz', ignore_index=True)
 
-    #df_material.to_excel(path_save, index=False) #chyba się coś przywiesza 4503; 4499
+
+
     # df_material[df_material['group']].sort_values(by=['beleg_nr_best', 'acppart_preis'], ascending=False). \
     #     to_excel(path_save, index=False)
     df_material['fz'] = df_material['fz'].apply(lambda x: str(x).strip())
     df_material = df_material.fillna('')
+
+    if path_save:
+        df_material.to_excel(path_save, index=False)  # chyba się coś przywiesza 4503; 4499
+
     return df_material

@@ -4,9 +4,9 @@ from dicts_n_lists import sql_import_map
 
 
 def device_list_description(project: str, fz: int) -> None:
-    '''
+    """
     :return:
-    '''
+    """
     col_list_dev = list(sql_import_map.device_list_sql_col_dict.keys())
     df_dev = general_sql.get_table_condition('device_list', [['id'] + col_list_dev],
                                              'project', project)
@@ -51,4 +51,4 @@ def leftover_material():
     pass
 
 
-device_list_description("4547", "1")
+device_list_description("4547", 1)

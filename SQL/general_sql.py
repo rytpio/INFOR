@@ -84,8 +84,6 @@ def drop_table_content(table_name: str) -> bool:
 
 
 def drop_table_rows(table_name: str, ref_list: list, column: list, column_type: list) -> bool:
-
-
     for y in column:
         i = column.index(y)
         bag = ref_list[i]
@@ -96,7 +94,8 @@ def drop_table_rows(table_name: str, ref_list: list, column: list, column_type: 
 
         for x in ref_list[column.index(y)]:  # need list otherwise take 1 element and divides into subelements
             column_type_x = column_type[column.index(y)]
-            if column_type_x != "": column_type_x = f'::{column_type_x}'
+            if column_type_x != "":
+                column_type_x = f'::{column_type_x}'
             conn = connect()
             cursor = conn.cursor()
             command = f'DELETE FROM {table_name} WHERE {y} = {x}{column_type_x};'
@@ -108,7 +107,7 @@ def drop_table_rows(table_name: str, ref_list: list, column: list, column_type: 
                 print('Error: %s' % error)
                 conn.rollback()
                 return False
-        conn.close()
+            conn.close()
 
     return True
 
@@ -138,7 +137,7 @@ def insert_into_table(table_name: str, df: pd.DataFrame, columns: dict) -> bool:
     cursor = conn.cursor()
 
     df = df[columns.keys()]
-    #tuples = [tuple(x) for x in df.to_numpy()]
+    # tuples = [tuple(x) for x in df.to_numpy()]
     # tuples = []
     # for x in df.to_numpy():
     #     tuples.append(tuple(x))
@@ -176,7 +175,7 @@ def update_table_fk_one_step(source_table_name: str, target_table_name: str, sou
         df_source = get_table_col_condition(source_table_name, (['id'] + source_columns), source_proj_col, project)
         df_target = get_table_col_condition(target_table_name, (['id'] + target_columns), target_proj_col, project)
 
-    #target_id_list = df_target[id_target].tolist()  # target table with duplicates to keep order
+    # target_id_list = df_target[id_target].tolist()  # target table with duplicates to keep order
     target_id_list = df_target[id_target].drop_duplicates().tolist()  # target table with duplicates to keep order
     source_id_list = df_source[id_source].drop_duplicates().tolist()  # assumption that source id is unique
 
@@ -187,14 +186,14 @@ def update_table_fk_one_step(source_table_name: str, target_table_name: str, sou
             id_list.append(x)  # lista id where, update
             part_list = (df_source['id'][df_source[id_source] == x]).tolist()
             if len(part_list) < 2:
-                fk_list.append(*part_list)  #dla unikatowych wartości 1:n wpisać 1 liczbę
+                fk_list.append(*part_list)  # dla unikatowych wartości 1:n wpisać 1 liczbę
             else:
-                fk_list.append(0)  #dla apparatelisty, avz, materiallisty są relacje n:n a więc tylko wpisać '0'
+                fk_list.append(0)  # dla apparatelisty, avz, materiallisty są relacje n:n a więc tylko wpisać '0'
             # lista wartosci fk_id do wpisania z tabeli docelowej
-            #fk_list.extend(df_source['id'][df_source[id_source] == x].tolist()) # list index 0->; sql index 1->
+            #  fk_list.extend(df_source['id'][df_source[id_source] == x].tolist()) # list index 0->; sql index 1->
         else:
             pass
-            #fk_list.append('Null')
+            # fk_list.append('Null')
 
     print(f'Update of {len(fk_list)} positions in {target_table_name}')
 
@@ -207,7 +206,7 @@ def update_table_fk_one_step(source_table_name: str, target_table_name: str, sou
                     f"{target_table_name}.{target_proj_col}='{project}'"
         cursor.execute(query)
         conn.commit()
-    except(Exception, psycopg2.DatabaseError) as error:
+    except (Exception, psycopg2.DatabaseError) as error:
         print('Error: %s' % error)
 
     try:
@@ -224,14 +223,14 @@ def update_table_fk_one_step(source_table_name: str, target_table_name: str, sou
 
             cursor.execute(query)
             conn.commit()
-    except(Exception, psycopg2.DatabaseError) as error:
+    except (Exception, psycopg2.DatabaseError) as error:
         print('Error: %s' % error)
     return False
 
 
 def update_fk(target_table: list, source_table: str, target_fk: str, project: str,
               id_source='stadler_id', id_target='stadler_id') -> None:
-    '''
+    """
     :param target_table: data into which id is to be added
     :param source_table: source data from which it is added
     :param target_fk:  targeted columns to add fk_
@@ -239,7 +238,7 @@ def update_fk(target_table: list, source_table: str, target_fk: str, project: st
     :param id_source: id col of source_list
     :param id_target: id col of target
     :return: None
-    '''
+    """
 
     for target in target_table:
         update_table_fk_one_step(source_table, target,
@@ -275,7 +274,7 @@ def insert_into_table_new_one_step(table_name: str, df: pd.DataFrame, columns: l
         # cursor.execute(query, tuples[0])
         conn.commit()
 
-    except(Exception, psycopg2.DatabaseError) as error:
+    except (Exception, psycopg2.DatabaseError) as error:
         print('Error: %s' % error)
         conn.rollback()
         return False

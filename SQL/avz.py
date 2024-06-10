@@ -5,11 +5,11 @@ import import_avz
 
 
 def avz(project: str) -> None:
-    '''
+    """
     opens raw, process and save as processed, import to sql
     :param project:
     :return:
-    '''
+    """
     table_name = 'avz'
     columns = reference_map.sql_col.get(table_name)
     fk_columns = reference_map.sql_fk_col.get(table_name)

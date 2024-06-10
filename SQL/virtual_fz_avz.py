@@ -5,14 +5,14 @@ import os
 
 
 def tree_plot_purchased(root_level: int, root_id: str, df_x: pd.DataFrame, purchased_list: list) -> pd.DataFrame():
-    '''
+    """
     function to drill down the tree, collecting list of purchased 'points'
     :param root_level: starting tree level
     :param root_id: starting tree point id
     :param df_x: tree dataframe
     :param purchased_list: list of tree points that are qualified as purchased
     :return: list of purchased tree points
-    '''
+    """
     df_x = df_x[df_x['breadcrumb'].str.contains(str(root_id))]
     df_x2 = df_x[df_x['level'] == root_level]
     level_lower = df_x2['stadler_id'].drop_duplicates().tolist()
@@ -27,7 +27,7 @@ def tree_plot_purchased(root_level: int, root_id: str, df_x: pd.DataFrame, purch
 
 def tree_plot(root_level: int, root_id: str, df_x: pd.DataFrame, purchase_level_list: list,
               purchased_list: list) -> pd.DataFrame():
-    '''
+    """
     function to drill down tree, collecting points by which material was purchased and lower purchased points in this position
     :param root_level: starting tree level
     :param root_id: starting tree point id
@@ -35,7 +35,7 @@ def tree_plot(root_level: int, root_id: str, df_x: pd.DataFrame, purchase_level_
     :param purchase_level_list: list of tree points that are qualified as level by which position was purchased (price contained)
     :param purchased_list: list of tree points that are qualified as purchased
     :return:
-    '''
+    """
     df_x = df_x[df_x['breadcrumb'].str.contains(str(root_id))]
     df_x2 = df_x[df_x['level'] == root_level]
     level_lower = df_x2['stadler_id'].drop_duplicates().tolist()
@@ -147,6 +147,7 @@ def substract_mat(quantity: float, prices: pd.DataFrame, df_matlist: pd.DataFram
     order_list = []
     price_list = []
     we_list = []
+    we = None  # no option for no we in case of correct data; otherwise will result in error
     count = len(prices)
     i = 0
     for tpl in prices.itertuples():
@@ -226,7 +227,7 @@ def substract_mat(quantity: float, prices: pd.DataFrame, df_matlist: pd.DataFram
 
 
 def avz_matlist_setup(project: str, fz: str):
-    '''
+    """
     Take material_list and avz; see what was purchased.
     Based on purchased AVZ parts; remove avz quantities from materiallist.
     Discrepancies should result in NRC, extra/unassigned to documentation orders, AP/C-mat orders or
@@ -234,7 +235,7 @@ def avz_matlist_setup(project: str, fz: str):
     :param project:
     :param fz:
     :return:
-    '''
+    """
 
     # IMPORT OK
     matlist_table_name = 'material_list'

@@ -80,7 +80,7 @@ def import_avz_data(path_read: str, path_save: str) -> pd.DataFrame:
     :return:
     """
 
-    df = pd.DataFrame()
+    #df = pd.DataFrame()
 
     # for file in os.listdir(path_read):
     #     if file[-4:] == '.csv':

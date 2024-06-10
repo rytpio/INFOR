@@ -8,7 +8,7 @@ def avz_knot(project: str) -> None:
     table_name = 'avz_knot'
     file_path = reference_map.file_path_dicts.get(project).get(table_name)
 
-    sheets = pd.ExcelFile(file_path).sheet_names
+    # sheets = pd.ExcelFile(file_path).sheet_names
     df = pd.read_excel(file_path)
     df['project'] = project
     df['fk_avz'] = None

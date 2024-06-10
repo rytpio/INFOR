@@ -10,9 +10,9 @@ from sys import stdout
 
 def logfile_lastline(logfile_txt):
     with open(logfile_txt, 'rb') as f:
-        f.seek(os.SEEK_END-2, os.SEEK_END-1)  # nie działa
+        f.seek(os.SEEK_END - 2, os.SEEK_END - 1)  # nie działa
         while f.read(1) != b'\n':
-            f.seek(os.SEEK_END-2, os.SEEK_END-1)
+            f.seek(os.SEEK_END - 2, os.SEEK_END - 1)
         print(f.readline().decode())
 
 
@@ -62,6 +62,7 @@ def import_struktur(project: str, standard: str, path_read: str, path_save: str)
     lvl_2 = []
     lvl_3 = []
     for row in df_strukt.itertuples():
+        lvl1 = lvl2 = lvl3 = None
         if int(row.level) == 1:
             lvl1 = row.description_1
             lvl2 = lvl3 = None
@@ -107,5 +108,3 @@ def import_struktur(project: str, standard: str, path_read: str, path_save: str)
     df_strukt.to_excel(path_save, index=False)
 
     return df_strukt
-
-

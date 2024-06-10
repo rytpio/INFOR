@@ -24,7 +24,8 @@ def import_ktlkanban(path_ktl_kanban_list: str, path_save: str):
     # df_ktl_kanban.dropna(subset=['stadler_id'], inplace=True) # zdublowane ilości --- do zestawienia merge ze strukturą ok; do dołożenia jako oddzielan pozycja nieok
 
     #df_ktl_kanban['src'] = 'ktl_kanban_staps'
-    #df_ktl_kanban.to_excel(os.path.join(path_save, r'test_ktl_kanban.xlsx'), index=False)
+    if path_save:
+        df_ktl_kanban.to_excel(os.path.join(path_save, r'test_ktl_kanban.xlsx'), index=False)
 
 
     return df_ktl_kanban
