@@ -58,18 +58,47 @@ avz_sql_col_dict = {
     'lvl2': 'VARCHAR(255)',
     'lvl3': 'VARCHAR(255)',
     'lvl4': 'VARCHAR(255)',
+    'lvl5': 'VARCHAR(255)',
+    'lvl6': 'VARCHAR(255)',
     'avz_quantity_in_tree': 'FLOAT',
     'fk_bossard_kanban_staps': 'INTEGER NULL',
     'fk_ktl_kanban_staps': 'INTEGER NULL',
-    'fk_ktl_kanban_stag': 'INTEGER NULL'
+    'fk_ktl_kanban_stag': 'INTEGER NULL',
+    'fk_wz': 'INTEGER NULL'
     # 'fk_avz_knot': 'INTEGER NULL'
 }
-avz_knot_sql_col_dict = {
+avz_knot_sql_col_dict = { #przypisane nagłówki do reszty
     'project': 'VARCHAR(25)',
-    'level': 'INTEGER',
-    'stadler_id': 'VARCHAR(25)',
-    'description_1': 'VARCHAR(255)'
+    'car': 'VARCHAR(50)', #domyślnie ALL, pozostałe wydzielić wagony ręcznie przed importem
+    'knot_1': 'VARCHAR(255)',
+    'knot_2': 'VARCHAR(255)',
+    'knot_3': 'VARCHAR(255)',
+    'bg': 'INTEGER',
+    'din': 'VARCHAR(2)',
+    'group_mask': 'VARCHAR(255)',
+    'avz_breadcrumb': 'VARCHAR(500)', #knot_id
+    'fk_avz': 'INTEGER NULL', #1:n, domyślnie powinien być NOT NULL - zawsze kompletne
 }
+
+avz_mat_knot_sql_col_dict = { # pozycje cenowy dla każdego pojazdu pod AVZ
+    'project': 'VARCHAR(25)',
+    'fz': 'INTEGER NULL', #na podstawie materialisty dla danego pojazdu
+    'avz_id': 'INTEGER NULL', #bezpośredni id dla avz - musi pokrywać się z breadcrumb inaczej rozjazdy i należy wygenerować na nowo dla pewności
+    'avz_breadcrumb': 'VARCHAR(500)', #knot_id 1:1 w połączeniu z avz_id
+    'purchase_level': 'VARCHAR(50)',
+    'purchased_status_exact': 'VARCHAR(50)',
+    'purchased_status_general': 'VARCHAR(50)',
+    'order_id': 'VARCHAR(255)',
+    'supplier_mat': 'VARCHAR(255)',
+    'price': 'FLOAT',
+    'currency': 'VARCHAR(50)',
+    'price_eur': 'FLOAT',
+    'price_eur_sum': 'FLOAT',
+    'fk_avz': 'INTEGER NULL' #1:n, domyślnie powinien być NOT NULL - zawsze kompletne
+}
+
+#Potrzebna jeszcze pozycje kalkulacji - maska - pozycja avz/matlist - maska
+
 avz_sql_col_fk_dict = {
     'CONSTRAINT fk_bossard_kanban_staps': 'FOREIGN KEY(fk_bossard_kanban_staps) REFERENCES '
                                           'bossard_kanban_staps(bossard_kanban_staps) '
@@ -85,6 +114,7 @@ avz_knot_relationship_sql_col_dict = {
     'fk_avz': 'BIGINT NULL',
     'fk_avz_knot': 'BIGINT NULL'
 }
+
 avz_knot_relationship_fk_sql_col_dict = {
     'CONSTRAINT fk_avz': 'FOREIGN KEY(fk_avz) REFERENCES avz(avz) ON DELETE CASCADE ON UPDATE CASCADE',
     'CONSTRAINT fk_avz_knot': 'FOREIGN KEY(fk_avz_knot) REFERENCES avz_knot(avz_knot) ON DELETE CASCADE ON UPDATE '
@@ -125,7 +155,10 @@ material_list_sql_col_dict = {
     'fk_bossard_kanban_staps': 'INTEGER NULL',
     'fk_ktl_kanban_staps': 'INTEGER NULL',
     'fk_ktl_kanban_stag': 'INTEGER NULL',
-    'fk_cable_quantity': 'INTEGER NULL'
+    'fk_cable_quantity': 'INTEGER NULL',
+    'fk_wz': 'INTEGER NULL',  # no relation only for check
+    'fk_avz': 'INTEGER NULL',  # no relation only for check
+    'fk_device_list': 'INTEGER NULL'  # no relation only for check
 }
 material_list_sql_col_fk_dict = {
     'CONSTRAINT fk_bossard_kanban_staps': 'FOREIGN KEY(fk_bossard_kanban_staps) REFERENCES '
@@ -155,7 +188,7 @@ material_list_device_list_relationship_fk_sql_col_dict = {
     'CONSTRAINT fk_material_list': 'FOREIGN KEY(fk_material_list) REFERENCES material_list(material_list) ON DELETE '
                                    'CASCADE ON UPDATE CASCADE',
     'CONSTRAINT fk_device_list': 'FOREIGN KEY(fk_device_list) REFERENCES device_list(device_list) ON DELETE '
-                                   'CASCADE ON UPDATE CASCADE'
+                                 'CASCADE ON UPDATE CASCADE'
 }
 
 # ////////////// Struct/WZ
@@ -195,7 +228,10 @@ wz_staps_sql_col_dict = {
     'car_stadler_id': 'VARCHAR(255)',
     'fk_bossard_kanban_staps': 'INTEGER NULL',
     'fk_ktl_kanban_staps': 'INTEGER NULL',
-    'fk_ktl_kanban_stag': 'INTEGER NULL'
+    'fk_ktl_kanban_stag': 'INTEGER NULL',
+    'fk_device_list': 'INTEGER NULL', #no relation only for check
+    'fk_avz': 'INTEGER NULL', #no relation only for check
+    'fk_material_list': 'INTEGER NULL' #no relation only for check
 }
 
 # /////////////////// KTL/KANBAN
@@ -288,9 +324,9 @@ device_list_sql_col_dict = {
     'stk_o': 'FLOAT',
     'stk_sum': 'FLOAT',
     'bg': 'VARCHAR(100)',
-    'din': 'VARCHAR(100)',
-    'main_group': 'VARCHAR(100)',
-    'secondary_group': 'VARCHAR(100)',
+    'din_1': 'VARCHAR(1)',
+    'din_2': 'VARCHAR(1)',
+    'group_mask': 'VARCHAR(100)',
     'description_1': 'VARCHAR(500)',
     'description_2': 'VARCHAR(500)',
     'type': 'VARCHAR(255)',
@@ -305,7 +341,9 @@ device_list_sql_col_dict = {
     'fk_bossard_prc': 'INTEGER NULL',
     'fk_bossard_kanban_staps': 'INTEGER NULL',
     'fk_ktl_kanban_staps': 'INTEGER NULL',
-    'fk_ktl_kanban_stag': 'INTEGER NULL'
+    'fk_ktl_kanban_stag': 'INTEGER NULL',
+    'fk_wz': 'INTEGER NULL', #no relation only for check
+    'fk_material_list': 'INTEGER NULL' #no relation only for check
 }
 device_list_sql_col_fk_dict = {
     'CONSTRAINT fk_bossard_prc': 'FOREIGN KEY(fk_bossard_prc) REFERENCES bossard_price_staps(bossard_price_staps) ON '
@@ -332,4 +370,42 @@ device_list_stapr_e3_sql_col_dict = {
     'quantity': 'FLOAT',
     'order': 'VARCHAR(255)',
     'status': 'VARCHAR(100)'
+}
+
+offer_base_sql_col_dict = {
+    # address info
+    'tender': 'VARCHAR(100)',
+    'tender_name': 'VARCHAR(100)',
+    'supplier': 'VARCHAR(100)',  # potential db extension
+    'offer_id': 'VARCHAR(100)',
+    'price': 'FLOAT',
+    'currency': 'VARCHAR(10)',  # potential data for currency risk analysis
+    'component_id': 'VARCHAR(100)',
+    'component_description': 'VARCHAR(255)',
+    # main price info
+    'total_quantity': 'FLOAT',
+    'lead_time_weeks': 'FLOAT',
+    'transport': 'VARCHAR(15)',
+    'payment_details': 'VARCHAR(255)',
+    'warranty': 'VARCHAR(255)',
+    'offer_valid': 'DATE',
+    'price_valid': 'DATE',
+    'price_formula_desc': 'VARCHAR(255)',  # empty; potential for additional offer evaluation
+    # extra price info
+    # 'rams_lcc_duration_weeks': 'FLOAT',
+    # 'rams_lcc_price': 'FLOAT',
+    # 'fai_price': 'FLOAT',
+    # 'documentation_price': 'FLOAT',
+    # 'certification_price': 'FLOAT',
+    # 'development_price': 'FLOAT',
+    # 'test_price': 'FLOAT',
+    # 'homologation_price': 'FLOAT',
+    # 'training_price': 'FLOAT',
+    # 'other_price': 'FLOAT',
+    # 'other_description': 'VARCHAR(255)',
+    # dates info
+    'request_date': 'DATE',
+    'received_date': 'DATE',
+    'requested_by': 'VARCHAR(100)',  # potential db extension
+    'supplied_by': 'VARCHAR(100)',  # potential db extension
 }

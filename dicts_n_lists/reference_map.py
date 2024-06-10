@@ -132,22 +132,22 @@ file_path_dicts = {
              },
     '4423': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4423_MATERIAL_LIST.xlsx',
              'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4423_MATERIAL_LIST_EXPLODED.csv',
-             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
-             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
-             # 'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4473_01erNEIN.xlsx',
-             # 'wz_processed': f'{default_data_path}\\WZ\\4473_WZ.xlsx',
-             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
+             'avz_raw': f'{default_data_path}\\AVZ\\4423_AVZ_raw.csv',
+             'avz_processed': f'{default_data_path}\\AVZ\\4423_AVZ_processed.xlsx',
+             'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4423KM_01erNEIN.xlsx',
+             'wz_processed': f'{default_data_path}\\WZ\\4423_WZ.xlsx',
+             'device_list': f'{default_data_path}\\DEVICE_LIST\\4423_DEVICE_LIST.xlsx',
              # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
              'fz_max': 61
              },
     '4431': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4431_MATERIAL_LIST.xlsx',
              'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4431_MATERIAL_LIST_EXPLODED.csv',
-             # 'avz_raw': f'{default_data_path}\\AVZ\\4473_AVZ_raw.csv',
-             # 'avz_processed': f'{default_data_path}\\AVZ\\4473_AVZ_processed.xlsx',
+             'avz_raw': f'{default_data_path}\\AVZ\\4431_AVZ_raw.csv',
+             'avz_processed': f'{default_data_path}\\AVZ\\4431_AVZ_processed.xlsx',
              # 'wz_raw': f'',#no wz STAMI
              # 'wz_processed': f'',#no wz STAMI
-             # 'device_list': f'{default_data_path}\\DEVICE_LIST\\4473_DEVICE_LIST.xlsx',
-             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx',
+             'device_list': f'{default_data_path}\\DEVICE_LIST\\4431_DEVICE_LIST.xlsx',
+             # 'cable_quantity': f'{default_data_path}\\CABLE\\4473_CABLE_QUANTITY.xlsx', # cable STAMI
              'fz_max': 21
              },
     '4432': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4432_MATERIAL_LIST.xlsx',
@@ -264,6 +264,8 @@ file_path_dicts = {
              'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4503_MATERIAL_LIST_EXPLODED.csv',
              'avz_raw': f'{default_data_path}\\AVZ\\4503_AVZ_raw+bogies.csv',
              'avz_processed': f'{default_data_path}\\AVZ\\4503_AVZ_processed.xlsx',
+             'avz_knot': f'{default_data_path}\\AVZ_KNOT\\4503_knot.xlsx',  # recznie przyporzadkowane knot
+             #'fz_mat_avz_knot': f'{default_data_path}\\AVZ_knots\\4503_AVZ_knot.xlsx',  # pozycje cen dla kazdego fz
              'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4503_01erNEIN.xlsx',
              'wz_processed': f'{default_data_path}\\WZ\\4503_WZ.xlsx',
              'device_list': f'{default_data_path}\\DEVICE_LIST\\4503_DEVICE_LIST.xlsx',
@@ -301,6 +303,8 @@ file_path_dicts = {
              'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4547_MATERIAL_LIST_EXPLODED.csv',
              'avz_raw': f'{default_data_path}\\AVZ\\4547_AVZ_raw.csv',
              'avz_processed': f'{default_data_path}\\AVZ\\4547_AVZ_processed.xlsx',
+             'avz_knot': f'{default_data_path}\\AVZ_KNOT\\4547_knot.xlsx',  # recznie przyporzadkowane knot
+             'fz_mat_avz_knot': f'{default_data_path}\\AVZ_knots\\4547_AVZ_knot.xlsx',  # pozycje cen dla kazdego fz
              'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4547_01erNEIN.xlsx',
              'wz_processed': f'{default_data_path}\\WZ\\4547_WZ.xlsx',
              'device_list': f'{default_data_path}\\DEVICE_LIST\\4547_DEVICE_LIST.xlsx',
@@ -336,6 +340,7 @@ sql_col = {
     'material_list_wz_relationship': sql_import_map.material_list_wz_relationship_sql_col_dict,
     'avz': sql_import_map.avz_sql_col_dict,
     'avz_knot': sql_import_map.avz_knot_sql_col_dict,
+    'avz_mat_knot': sql_import_map.avz_mat_knot_sql_col_dict,
     'avz_knot_relationship': sql_import_map.avz_knot_relationship_sql_col_dict,
 
     'wz': sql_import_map.wz_staps_sql_col_dict,

@@ -124,9 +124,8 @@ def create_fz_avz(project: str, fz: str):
     #  ??? Purchase level is not working.
 
 
-def substract_mat(quantity: float, prices: pd.DataFrame, df_matlist: pd.DataFrame, df_we: pd.DataFrame) ->\
+def substract_mat(quantity: float, prices: pd.DataFrame, df_matlist: pd.DataFrame, df_we: pd.DataFrame) -> \
         [list, list, float, float, float, str, pd.DataFrame]:
-
     """
     prices can be different; take price 1 if is enough; if completed from more than 1 then flag and take average
     one order can be insufficient for avz completion
@@ -159,7 +158,7 @@ def substract_mat(quantity: float, prices: pd.DataFrame, df_matlist: pd.DataFram
             price_list.append(float(tpl.unit_price) / float(tpl.unit_price_basis))
             we_list.append(str(tpl.currency).upper())  # currency
             order_list.append(tpl.order_id)  # order
-            supplier_list.append(tpl.supplier)  # supplier
+            if tpl.supplier not in supplier_list: supplier_list.append(tpl.supplier)  # supplier
             # substract and end function
             df_matlist['quantity_order_minus_avz'][index] = float(tpl.quantity_order_minus_avz) - quantity
             # print(df_matlist['quantity_order_minus_avz'][index], 2)
@@ -178,7 +177,7 @@ def substract_mat(quantity: float, prices: pd.DataFrame, df_matlist: pd.DataFram
                 price_list.append(float(tpl.unit_price) / float(tpl.unit_price_basis))
                 we_list.append(str(tpl.currency).upper())  # currency
 
-            supplier_list.append(tpl.supplier)  # supplier
+            if tpl.supplier not in supplier_list: supplier_list.append(tpl.supplier)  # supplier
             order_list.append(tpl.order_id)  # order
             # substract and go for next if no next then -
             if i >= count:
@@ -192,10 +191,10 @@ def substract_mat(quantity: float, prices: pd.DataFrame, df_matlist: pd.DataFram
             price_list.append(float(tpl.unit_price) / float(tpl.unit_price_basis))
             we_list.append(str(tpl.currency).upper())  # currency
             order_list.append(tpl.order_id)  # order
-            supplier_list.append(tpl.supplier)  # supplier
+            if tpl.supplier not in supplier_list: supplier_list.append(tpl.supplier)  # supplier
             if i >= count:
                 # substract all leftover quantity
-                df_matlist['quantity_order_minus_avz'][index] = float(tpl.quantity_order_minus_avz) - quantity #w/o
+                df_matlist['quantity_order_minus_avz'][index] = float(tpl.quantity_order_minus_avz) - quantity  #w/o
             else:
                 quantity = quantity - float(tpl.quantity_order_minus_avz)
                 df_matlist['quantity_order_minus_avz'][index] = 0
@@ -251,16 +250,17 @@ def avz_matlist_setup(project: str, fz: str):
     # matlist has to be summed quantities by order_mnr - hoping that there are no different prices in an order
     df_matlist['quantity_per_fz'] = df_matlist['quantity_per_fz'].apply(lambda x: float(x))
     df_matlist['quantity_per_order'] = df_matlist.groupby(by=['stadler_id', 'order_id'], sort=False)[
-        'quantity_per_fz'].transform('sum') # sum of all ordered quantities
+        'quantity_per_fz'].transform('sum')  # sum of all ordered quantities
     df_matlist['quantity_order_minus_avz'] = df_matlist['quantity_per_order']
     df_matlist = df_matlist.drop_duplicates(subset=['stadler_id', 'order_id'])
 
-    df = pd.read_excel(f'{path_save}\\{project}_avz_mat.xlsx')#, nrows=500) ##SQL avz doesn't have purchase level column of cross reference with matlist
+    df = pd.read_excel(
+        f'{path_save}\\{project}_avz_mat.xlsx')  #, nrows=500) ##SQL avz doesn't have purchase level column of cross reference with matlist
     # df = general_sql.get_table_condition('avz', ['id'] + list(sql_import_map.avz_sql_col_dict.keys()),
     #                                      'project', project)
     df_purchased = df[df['purchase_level'] == 'x']
     #df_purchased = df[df['stadler_id'].notnull()]
-   #print(df_purchased.shape)
+    #print(df_purchased.shape)
 
     df_we = general_sql.get_table('currency_data', True)
     df_we = df_we.set_axis(labels=['id'] + list(sql_import_map.currency_sql_col_dict.keys()), axis=1)
@@ -280,7 +280,7 @@ def avz_matlist_setup(project: str, fz: str):
 
     for row in df_purchased.itertuples():  # 18121038
 
-        if str(row.stadler_id)=='12035922':
+        if str(row.stadler_id) == '12035922':
             print('x')
         prices = pd.DataFrame(df_matlist[df_matlist['stadler_id'] == str(row.stadler_id)])
         #wybierz stadler_id - teoretycznie kilkukrotnie wybierze ten sam,
@@ -296,7 +296,6 @@ def avz_matlist_setup(project: str, fz: str):
         price_eur_lst.append(price_eur)
         price_eur_sum_lst.append(price_eur_sum)
 
-
     #print(y, len(order_lst), len(supplier_lst), len(price_lst), len(we_lst))
     #46 list out of 46- something doesnt' work in series
     df_purchased['order'] = pd.Series(order_lst).values
@@ -307,7 +306,8 @@ def avz_matlist_setup(project: str, fz: str):
     df_purchased['price_eur_sum'] = pd.Series(price_eur_sum_lst).values
 
     df_purchased.to_excel(f'{path_save}\\{project}_avz_mat_purchased_2.xlsx', index=False, sheet_name='avz')
-    df_pur = df_purchased[['order', 'supplier', 'price', 'currency', 'price_eur', 'price_eur_sum', 'avz_struct_index','id']]
+    df_pur = df_purchased[
+        ['order', 'supplier', 'price', 'currency', 'price_eur', 'price_eur_sum', 'avz_struct_index', 'id']]
     #df = df.join(df_pur, on='avz_struct_index', how='left', rsuffix='_material_list', validate='1:1')
     df = df.merge(df_pur, on=['avz_struct_index', 'id'], how='left', validate='1:1')
     #right, inner should be same, outside always 0
@@ -330,12 +330,36 @@ def avz_matlist_setup(project: str, fz: str):
     # avz_mat_after - materiallist after crosscheck with avz
     # mat_not_ordered - potentially missing data (is in avz, not in materiallist)
 
+    #import to mat_fz_avz_knot list
+    general_sql.drop_table_rows('avz_mat_knot', [[project], [fz]],
+                                ['project', 'fz'], column_type=[['varchar'],['']])  #usun stare wpisy
 
-# substracting worked on 4473... before name changes
+    df_mat_knot = df[['project', 'id', 'breadcrumb', 'purchase_level', 'purchased_status_exact',
+                      'purchased_status_general', 'order', 'supplier_y', 'price', 'currency',
+                      'price_eur', 'price_eur_sum']]
+    df_mat_knot.columns = ['project', 'avz_id', 'avz_breadcrumb', 'purchase_level', 'purchased_status_exact',
+                           'purchased_status_general', 'order_id', 'supplier_mat', 'price', 'currency',
+                           'price_eur', 'price_eur_sum']
+    df_mat_knot['fz'] = fz
+    df_mat_knot['fk_avz'] = None
+
+    general_sql.insert_into_table('avz_mat_knot', df_mat_knot, sql_import_map.avz_mat_knot_sql_col_dict)
+
+    general_sql.update_fk(['avz_mat_knot'], 'avz', 'fk_avz', project, 'id',
+                          'avz_id')  # ten sam plik powinno się dać wygenerować
 
 
-#KRK3 - working avz purchase level; TODO: Transfer sum of positions in EUR; SUM from low to highest
-#create_fz_avz('4547', '1')
-avz_matlist_setup('4547',  '1') #nie działa dobieranie cen.. tylko pierwsze znalezione dobiera
+project = '4503'
+fz = '1'
+create_fz_avz(project, fz)
+avz_matlist_setup(project, fz)
 
+#---------------------------------------------------------------
+#For each in AVZ / matlist - take quantity and orders written
+#First order find and take quantity into new df with avz knot1/2/3 /MASK
+#If any quantity left then go next; if quantity exact then leave out 0; if quantity not enough go for next order
+#Do for whole AVZ in matlist; copy leftover materiallist - later to add on apparateliste/cable/bossard/ktl-kanban/leftover description
+#If mask completed then add mask on top - result should be for complete materiallist grouped for each project
+#IMPORTANT: Write all that quantity on last order is still not reached (possible material movement)
+#Similar needs to be done on apparateliste as it can be n:n;
 

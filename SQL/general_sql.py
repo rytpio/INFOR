@@ -1,6 +1,9 @@
 import psycopg2
+
 import pandas as pd
 import timeit
+
+from dicts_n_lists import reference_map
 
 
 def two_step_fk(df_source: pd.DataFrame, searched1: str, searched2: str, var1: str, var2: str):
@@ -80,22 +83,32 @@ def drop_table_content(table_name: str) -> bool:
     return True
 
 
-def drop_table_rows(table_name: str, ref_list: list, column: str) -> bool:
-    conn = connect()
-    cursor = conn.cursor()
+def drop_table_rows(table_name: str, ref_list: list, column: list, column_type: list) -> bool:
 
-    for x in ref_list:
-        command = f'DELETE FROM {table_name} WHERE {column} = {x}::varchar;'
-        try:
-            cursor.execute(command)
-            # print(cursor.rowcount)
-            conn.commit()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print('Error: %s' % error)
-            conn.rollback()
-            return False
 
-    conn.close()
+    for y in column:
+        i = column.index(y)
+        bag = ref_list[i]
+        if isinstance(bag, list) and len(bag) > 1:
+            bag = ref_list[i]
+        else:
+            bag = [ref_list[i]]
+
+        for x in ref_list[column.index(y)]:  # need list otherwise take 1 element and divides into subelements
+            column_type_x = column_type[column.index(y)]
+            if column_type_x != "": column_type_x = f'::{column_type_x}'
+            conn = connect()
+            cursor = conn.cursor()
+            command = f'DELETE FROM {table_name} WHERE {y} = {x}{column_type_x};'
+            try:
+                cursor.execute(command)
+                # print(cursor.rowcount)
+                conn.commit()
+            except (Exception, psycopg2.DatabaseError) as error:
+                print('Error: %s' % error)
+                conn.rollback()
+                return False
+        conn.close()
 
     return True
 
@@ -150,48 +163,90 @@ def insert_into_table(table_name: str, df: pd.DataFrame, columns: dict) -> bool:
     return True
 
 
-def update_table_fk_one_step(parent_table_name: str, child_table_name: str, parent_columns: list, child_columns: list,
-                             id_parent: str, id_child: str, id_fk_col: str,
-                             parent_proj_col='project', child_proj_col='project', project='') -> bool:
+def update_table_fk_one_step(source_table_name: str, target_table_name: str, source_columns: list, target_columns: list,
+                             id_source: str, id_target: str, id_fk_col: str, project: str,
+                             source_proj_col='project', target_proj_col='project') -> bool:
     conn = connect()
     cursor = conn.cursor()
 
     if project == '':
-        df_parent = get_table_col(parent_table_name, (['id'] + parent_columns))
-        df_child = get_table_col(child_table_name, (['id'] + child_columns))
+        df_source = get_table_col(source_table_name, (['id'] + source_columns))
+        df_target = get_table_col(target_table_name, (['id'] + target_columns))
     else:
-        df_parent = get_table_col_condition(parent_table_name, (['id'] + parent_columns), parent_proj_col, project)
-        df_child = get_table_col_condition(child_table_name, (['id'] + child_columns), child_proj_col, project)
+        df_source = get_table_col_condition(source_table_name, (['id'] + source_columns), source_proj_col, project)
+        df_target = get_table_col_condition(target_table_name, (['id'] + target_columns), target_proj_col, project)
 
-    child_id_list = df_child[id_child].tolist()  # child table with duplicates to keep order
-    parent_id_list = df_parent[id_parent].drop_duplicates().tolist()  # assumption that parent id is unique
+    #target_id_list = df_target[id_target].tolist()  # target table with duplicates to keep order
+    target_id_list = df_target[id_target].drop_duplicates().tolist()  # target table with duplicates to keep order
+    source_id_list = df_source[id_source].drop_duplicates().tolist()  # assumption that source id is unique
 
     fk_list = []
-    for x in child_id_list:
-        if x in parent_id_list:
-            # print(df_parent['id'][df_parent[id_parent] == id])
-            # print(*df_parent['id'][df_parent[id_parent] == id])
-            fk_list.append(*df_parent['id'][df_parent[id_parent] == x])  # list index 0->; sql index 1->
+    id_list = []
+    for x in target_id_list:
+        if x in source_id_list:
+            id_list.append(x)  # lista id where, update
+            part_list = (df_source['id'][df_source[id_source] == x]).tolist()
+            if len(part_list) < 2:
+                fk_list.append(*part_list)  #dla unikatowych wartości 1:n wpisać 1 liczbę
+            else:
+                fk_list.append(0)  #dla apparatelisty, avz, materiallisty są relacje n:n a więc tylko wpisać '0'
+            # lista wartosci fk_id do wpisania z tabeli docelowej
+            #fk_list.extend(df_source['id'][df_source[id_source] == x].tolist()) # list index 0->; sql index 1->
         else:
-            fk_list.append('Null')
+            pass
+            #fk_list.append('Null')
+
+    print(f'Update of {len(fk_list)} positions in {target_table_name}')
 
     try:
-        # cursor.executemany(query, fk_list)
+        # reset indexes to NULL
+        if project == '':
+            query = f"UPDATE {target_table_name} SET {id_fk_col}=NULL"
+        else:
+            query = f"UPDATE {target_table_name} SET {id_fk_col}=NULL WHERE " \
+                    f"{target_table_name}.{target_proj_col}='{project}'"
+        cursor.execute(query)
+        conn.commit()
+    except(Exception, psycopg2.DatabaseError) as error:
+        print('Error: %s' % error)
+
+    try:
+        # set only not null fk keys to values
         for x in range(1, len(fk_list)):
             if project == '':
-                query = f"UPDATE {child_table_name} SET {id_fk_col}={fk_list[x - 1]} WHERE " \
-                        f"{child_table_name}.{id_child}='{child_id_list[x - 1]}'"
+                query = f"UPDATE {target_table_name} SET {id_fk_col}={fk_list[x - 1]} WHERE " \
+                        f"{target_table_name}.{id_target}='{id_list[x - 1]}'"
             else:
-                query = f"UPDATE {child_table_name} SET {id_fk_col}={fk_list[x - 1]} WHERE " \
-                        f"{child_table_name}.{id_child}='{child_id_list[x - 1]}' " \
-                        f"AND {child_table_name}.{child_proj_col}='{project}'"
-            print(f'{x} of {len(fk_list)} positions')  # strasznie wolno działa; 5 pozycji na sekunde; jakies 3h
+                query = f"UPDATE {target_table_name} SET {id_fk_col}={fk_list[x - 1]} WHERE " \
+                        f"{target_table_name}.{id_target}='{id_list[x - 1]}' " \
+                        f"AND {target_table_name}.{target_proj_col}='{project}'"
+            print(f'{x} of {len(fk_list)} positions')
 
             cursor.execute(query)
             conn.commit()
     except(Exception, psycopg2.DatabaseError) as error:
         print('Error: %s' % error)
     return False
+
+
+def update_fk(target_table: list, source_table: str, target_fk: str, project: str,
+              id_source='stadler_id', id_target='stadler_id') -> None:
+    '''
+    :param target_table: data into which id is to be added
+    :param source_table: source data from which it is added
+    :param target_fk:  targeted columns to add fk_
+    :param project: project
+    :param id_source: id col of source_list
+    :param id_target: id col of target
+    :return: None
+    '''
+
+    for target in target_table:
+        update_table_fk_one_step(source_table, target,
+                                 list(reference_map.sql_col.get(source_table).keys()),
+                                 list(reference_map.sql_col.get(target).keys()),
+                                 id_source, id_target, target_fk, project)
+        print(f'Finished updating {source_table} fk keys on {target}')
 
 
 def insert_into_table_new_one_step(table_name: str, df: pd.DataFrame, columns: list, id_col: str,
@@ -303,8 +358,8 @@ def get_table_condition(table_name: str, col_list: list, condition_col: str, con
     return table
 
 
-def get_table_multi_condition(table_name: str, col_list: list, condition_col_list: str,
-                              condition_value_list: str) -> pd.DataFrame:
+def get_table_multi_condition(table_name: str, col_list: list, condition_col_list: list,
+                              condition_value_list: list) -> pd.DataFrame:
     conn = connect()
     cursor = conn.cursor()
     if len(condition_col_list) == len(condition_value_list):
@@ -381,3 +436,17 @@ def get_dataset(table_name: str, col_list: list) -> pd.DataFrame:
     # command_drop_column = f'''ALTER TABLE {table_name_src} DROP COLUMN {column_name};'''
     # cursor.execute(command_drop_column)
     # conn.commit()
+
+
+def run_query(query: str) -> pd.DataFrame:
+    conn = connect()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(query)
+        conn.commit()
+        table = pd.DataFrame(cursor.fetchall())
+    except (Exception, psycopg2.DatabaseError) as error:
+        print('Error: %s' % error)
+        return pd.DataFrame()
+    conn.close()
+    return table

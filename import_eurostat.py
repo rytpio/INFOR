@@ -8,6 +8,7 @@ pd.set_option('display.width', 1000)
 
 # Eurostat Q1.2024 pierwszy rzut w 30.04.2024; update 15.05.2024; update 07.06.2024
 # czyżby Eurostat wrzucał miesiąc po zakończeniu danego kwartału dane ?
+#1-3//04 - Q1, 4-6//07 - Q2, 7-9//10 - Q3, 10-12//1 - Q4
 
 import requests
 from collections import OrderedDict

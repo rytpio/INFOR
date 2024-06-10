@@ -37,3 +37,8 @@ def ktl_kanban_staps():
 
 
 ktl_kanban_staps()
+
+general_sql.update_fk(['wz', 'device_list', 'material_list','avz', 'wz'],
+                      'ktl_kanban_staps','fk_ktl_kanban_staps','')
+
+

@@ -12,7 +12,7 @@ def wz_struktur_staps(project: str, project_location: str):  # tylko zrzut "nur 
     path_save = reference_map.file_path_dicts.get(project).get('wz_processed')
 
     #general_sql.drop_table(table_name)
-    general_sql.create_table(table_name, table_name, columns)
+    #general_sql.create_table(table_name, table_name, columns)
 
     df = import_struktur(project, project_location, path_read, path_save)
     #  df = pd.read_csv(path_df, sep=';', low_memory=False)
@@ -37,6 +37,9 @@ def wz_struktur_staps(project: str, project_location: str):  # tylko zrzut "nur 
         reference_map.sql_col.get('ktl_kanban_stag').keys()))
     df['fk_ktl_kanban_stag'] = df['stadler_id'].apply(lambda x: general_sql.one_step_fk(df_z, 'stadler_id', x))
 
+    df['fk_device_list'] = None   # added for blank col
+    df['fk_avz'] = None # added for blank col
+    df['fk_material_list'] = None # added for blank col
 
     # df = df.convert_dtypes() #remove issues with psycopg2 "can't adapt type 'numpy.int64'"; #error if all columns are na/none type #remove or cast manually column to type
     # DOTO: SQL Szacowany koszt pojazdu na podstawie wszystkich WZ * ceny // czego nie ma na WZ poza pudłami ? 1. NRC 2. Kanban 3. KTL jest zdublowany 4. Groupposition 5?
@@ -47,4 +50,6 @@ def wz_struktur_staps(project: str, project_location: str):  # tylko zrzut "nur 
     general_sql.get_table(table_name)
 
 
-wz_struktur_staps('4547', 'STAPS')
+project = '4503'
+wz_struktur_staps(project, 'STAPS')
+

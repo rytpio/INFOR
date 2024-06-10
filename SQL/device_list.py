@@ -24,7 +24,7 @@ def device_list(project: str):
     #general_sql.drop_table_cascade(table_name)
     #general_sql.create_table(table_name, table_name, columns | fk_columns)
 
-    df = pd.read_excel(path)
+    df = pd.read_excel(path, sheet_name='ap')
     df.columns = ([x.lower().translate(x.maketrans(translate_dict)).
                    replace('\n', '_').
                    replace('___', '_').replace('__', '_').
@@ -63,7 +63,8 @@ def device_list(project: str):
                                                        general_sql.one_step_fk(df_ktl_kanban_staps, 'stadler_id', x))
     df['fk_ktl_kanban_stag'] = df['stadler_id'].apply(lambda x:
                                                       general_sql.one_step_fk(df_ktl_kanban_stag, 'stadler_id', x))
-
+    df['fk_wz'] = None
+    df['fk_material_list'] = None
     # DOTO: SQL Zestawienie danych z listy aparatów z komponentami, cenami
     # DOTO: SQL Zestawienie KTL/Kanban zawierających się w liscie aparatów
 
@@ -72,11 +73,18 @@ def device_list(project: str):
     # df_len.to_excel(r'C:\Users\rytpio\Desktop\Projekty bieżące\APPARATELISTE\apcheck.xlsx',index=False)
     df = df.applymap(lambda x: x[:254] if len(str(x)) > 255 else x)  # zetnij do 255 znaków
 
-    # general_sql.drop_table_content(table_name)  # usun stare wpisy
+    general_sql.drop_table_rows(table_name,[project],['project'], column_type=['varchar'])  # usun stare wpisy
+
+    # for col in columns.keys():
+    #     col_val = str(columns.get(col))
+    #     if col_val.find("(")>0:
+    #         col_len = int(col_val[col_val.find('(')+1:col_val.rfind(')')])
+    #         df[col] = df[col].apply(lambda x: x[:col_len] if len(str(x)) > col_len else x)
+
     general_sql.insert_into_table(table_name, df, columns)
 
 
     #general_sql.get_table(table_name, True)
 
-
-device_list("4547")
+project = '4503'
+device_list(project)

@@ -580,9 +580,9 @@ device_dict_project = {
             'stk_e': 'stk_e',
             'bezeichnung_deutsch': 'description_1',
             'bg': 'bg',
-            'din': 'din',
-            'cat_1': 'main_group',
-            'cat_2': 'secondary_group',
+            'din_1': 'din_1',
+            'din_2': 'din_2',
+            'group_mask': 'group_mask',
             'typ': 'type',
             'nenndaten': 'description_2',
             'massbilder_bestellnummer': 'supplier_id',
@@ -595,13 +595,13 @@ device_dict_project = {
             'verantwortlich': 'person_responsible'},
         'col_complete_list': [
             'schematic_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'stk_f', 'stk_g', 'stk_h',
-            'stk_i', 'stk_j', 'stk_k', 'stk_l', 'stk_m', 'stk_n', 'stk_o', 'description_1', 'bg', 'din',
-            'main_group', 'secondary_group', 'type', 'description_2', 'supplier_id', 'supplier', 'car_area',
+            'stk_i', 'stk_j', 'stk_k', 'stk_l', 'stk_m', 'stk_n', 'stk_o', 'description_1', 'bg', 'din_1', 'din_2', 'group_mask',
+            'type', 'description_2', 'supplier_id', 'supplier', 'car_area',
             'schematic', 'comment', 'stadler_id', 'status', 'person_responsible'
         ],
         'col_cutout_list': [
             'schema_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'bezeichnung_deutsch',
-            'bg', 'din', 'cat_1', 'cat_2', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
+            'bg', 'din_1', 'din_2', 'group_mask', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
             'einbau_ort', 'schema', 'bemerkungen', 'stadlerid', 'be_status', 'verantwortlich']
     },
     '4547': {
@@ -614,9 +614,9 @@ device_dict_project = {
             'stk_d': 'stk_d',
             'bezeichnung_deutsch': 'description_1',
             'bg': 'bg',
-            'din': 'din',
-            'cat_1': 'main_group',
-            'cat_2': 'secondary_group',
+            'din_1': 'din_1',
+            'din_2': 'din_2',
+            'group_mask': 'group_mask',
             'typ': 'type',
             'nenndaten': 'description_2',
             'massbilder_bestellnummer': 'supplier_id',
@@ -630,13 +630,114 @@ device_dict_project = {
         'col_complete_list': [
             'schematic_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'stk_f', 'stk_g', 'stk_h',
             'stk_i', 'stk_j', 'stk_k', 'stk_l', 'stk_m', 'stk_n', 'stk_o',
-            'description_1', 'bg', 'din',
-            'main_group', 'secondary_group', 'type', 'description_2', 'supplier_id', 'supplier', 'car_area',
+            'description_1', 'bg', 'din_1', 'din_2', 'group_mask', 'type', 'description_2', 'supplier_id', 'supplier', 'car_area',
             'schematic', 'comment', 'stadler_id', 'status', 'person_responsible'
         ],
         'col_cutout_list': [
             'schema_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'bezeichnung_deutsch',
-            'bg', 'din', 'cat_1', 'cat_2', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
+             'bg', 'din_1', 'din_2', 'group_mask', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
+            'einbau_ort', 'schema', 'bemerkungen', 'stadlerid', 'be_status', 'verantwortlich']
+    },
+    '4431': {
+        'col_change_dict': {
+            'schema_position': 'schematic_position',
+            'h_u': 'h_u',
+            'stk_a': 'stk_a',
+            'stk_b': 'stk_b',
+            'stk_c': 'stk_c',
+            'stk_d': 'stk_d',
+            'bezeichnung_deutsch': 'description_1',
+            'bg': 'bg',
+            'din_1': 'din_1',
+            'din_2': 'din_2',
+            'group_mask': 'group_mask',
+            'typ': 'type',
+            'nenndaten': 'description_2',
+            'massbilder_bestellnummer': 'supplier_id',
+            'lieferant_hersteller': 'supplier',
+            'einbau_ort': 'car_area',
+            'schema': 'schematic',
+            'bemerkungen': 'comment',
+            'stadlerid': 'stadler_id',
+            'be_status': 'status',
+            'verantwortlich': 'person_responsible'},
+        'col_complete_list': [
+            'schematic_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'stk_f', 'stk_g', 'stk_h',
+            'stk_i', 'stk_j', 'stk_k', 'stk_l', 'stk_m', 'stk_n', 'stk_o',
+            'description_1', 'bg', 'din_1', 'din_2', 'group_mask', 'type', 'description_2', 'supplier_id', 'supplier', 'car_area',
+            'schematic', 'comment', 'stadler_id', 'status', 'person_responsible'
+        ],
+        'col_cutout_list': [
+            'schema_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'bezeichnung_deutsch',
+             'bg', 'din_1', 'din_2', 'group_mask', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
+            'einbau_ort', 'schema', 'bemerkungen', 'stadlerid', 'be_status', 'verantwortlich']
+    },
+'4423': {
+        'col_change_dict': {
+            'schema_position': 'schematic_position',
+            'h_u': 'h_u',
+            'stk_a': 'stk_a',
+            'stk_b': 'stk_b',
+            'stk_c': 'stk_c',
+            'stk_d': 'stk_d',
+            'stk_e': 'stk_e',
+            'bezeichnung_deutsch': 'description_1',
+            'bg': 'bg',
+            'din_1': 'din_1',
+            'din_2': 'din_2',
+            'group_mask': 'group_mask',
+            'typ': 'type',
+            'nenndaten': 'description_2',
+            'massbilder_bestellnummer': 'supplier_id',
+            'lieferant_hersteller': 'supplier',
+            'einbau_ort': 'car_area',
+            'schema': 'schematic',
+            'bemerkungen': 'comment',
+            'stadlerid': 'stadler_id',
+            'be_status': 'status',
+            'verantwortlich': 'person_responsible'},
+        'col_complete_list': [
+            'schematic_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'stk_f', 'stk_g', 'stk_h',
+            'stk_i', 'stk_j', 'stk_k', 'stk_l', 'stk_m', 'stk_n', 'stk_o',
+            'description_1', 'bg', 'din_1', 'din_2', 'group_mask', 'type', 'description_2', 'supplier_id', 'supplier', 'car_area',
+            'schematic', 'comment', 'stadler_id', 'status', 'person_responsible'
+        ],
+        'col_cutout_list': [
+            'schema_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e',  'bezeichnung_deutsch',
+            'bg', 'din_1', 'din_2', 'group_mask', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
+            'einbau_ort', 'schema', 'bemerkungen', 'stadlerid', 'be_status', 'verantwortlich']
+    },
+'4503': {
+        'col_change_dict': {
+            'schema_position': 'schematic_position',
+            'h_u': 'h_u',
+            'stk_a': 'stk_a',
+            'stk_b': 'stk_b',
+            'stk_c': 'stk_c',
+            'bezeichnung_deutsch': 'description_1',
+            'bg': 'bg',
+            'din_1': 'din_1',
+            'din_2': 'din_2',
+            'group_mask': 'group_mask',
+            'typ': 'type',
+            'nenndaten': 'description_2',
+            'massbilder_bestellnummer': 'supplier_id',
+            'lieferant_hersteller': 'supplier',
+            'einbau_ort': 'car_area',
+            'schema': 'schematic',
+            'bemerkungen': 'comment',
+            'stadlerid': 'stadler_id',
+            'be_status': 'status',
+            'verantwortlich': 'person_responsible'},
+        'col_complete_list': [
+            'schematic_position', 'h_u', 'stk_a', 'stk_b', 'stk_c', 'stk_d', 'stk_e', 'stk_f', 'stk_g', 'stk_h',
+            'stk_i', 'stk_j', 'stk_k', 'stk_l', 'stk_m', 'stk_n', 'stk_o',
+            'description_1', 'bg', 'din_1', 'din_2', 'group_mask', 'type', 'description_2', 'supplier_id', 'supplier', 'car_area',
+            'schematic', 'comment', 'stadler_id', 'status', 'person_responsible'
+        ],
+        'col_cutout_list': [
+            'schema_position', 'h_u', 'stk_a', 'stk_b', 'stk_c',  'bezeichnung_deutsch',
+            'bg', 'din_1', 'din_2', 'group_mask', 'typ', 'nenndaten', 'massbilder_bestellnummer', 'lieferant_hersteller',
             'einbau_ort', 'schema', 'bemerkungen', 'stadlerid', 'be_status', 'verantwortlich']
     }
 }

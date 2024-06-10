@@ -26,7 +26,7 @@ def bossard_price_staps():
     general_sql.drop_table_content(table_name)  # usun stare wpisy
     general_sql.insert_into_table(table_name, df, columns)
 
-    general_sql.get_table(table_name)
+    #general_sql.get_table(table_name)
 
 
 def bossard_stock_staps():
@@ -52,11 +52,15 @@ def bossard_stock_staps():
 
     general_sql.insert_into_table(table_name, df, columns)
 
-    general_sql.get_table(table_name)
+    #general_sql.get_table(table_name)
 
 
-bossard_stock_staps()
 
-bossard_price_staps()
+#bossard_stock_staps()
+
+#bossard_price_staps()
+general_sql.update_fk(['wz', 'device_list', 'material_list','avz', 'wz'],
+                      'bossard_kanban_staps','fk_bossard_kanban_staps','')
 
 
+#wrzuc do listy "update_list" id klucza parent list, w kolumne podana na projekcie x

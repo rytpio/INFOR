@@ -48,12 +48,19 @@ def material_list(project: str, standard: str):
     # if if VARCHAR in string then get () from VARCHAR
     # cut VARCHAR column to selected length
     df.to_csv(path_processed, index=False, sep=';')
+
+    df['fk_avz'] = None # added for blank col
+    df['fk_device_list'] = None # added for blank col
+    df['fk_wz'] = None  # added for blank col
+
     general_sql.insert_into_table(table_name, df, columns)
 
+project = '4503'
+material_list(project, "STAPS_single")
 
-material_list("4547", "STAPS_single")
 
-#
+
+
 # def import_many():
 #     many = ['4388', '4413', '4421', '4423','4431','4444','4473','4503','4547']
 #     for proj in many:

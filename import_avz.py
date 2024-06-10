@@ -41,26 +41,37 @@ def lvl_headers(df: pd.DataFrame) -> [list, list, list, list]:
     lvl_2 = []
     lvl_3 = []
     lvl_4 = []
-    lvl1 = lvl2 = lvl3 = lvl4 = None
+    lvl_5 = []
+    lvl_6 = []
+    lvl1 = lvl2 = lvl3 = lvl4 = lvl5 = lvl6 = None
     for lvl in df.itertuples():
         if int(lvl.level) == 0:
-            lvl1 = lvl2 = lvl3 = lvl4 = None
+            lvl1 = lvl2 = lvl3 = lvl4 = lvl5 = lvl6 = None
         if int(lvl.level) == 1:
             lvl1 = lvl.description_1
-            lvl2 = lvl3 = lvl4 = None
+            lvl2 = lvl3 = lvl4 = lvl5 = lvl6 = None
         if int(lvl.level) == 2:
             lvl2 = lvl.description_1
-            lvl3 = lvl4 = None
+            lvl3 = lvl4 = lvl5 = lvl6 = None
         if int(lvl.level) == 3:
             lvl3 = lvl.description_1
-            lvl4 = None
+            lvl4 = lvl5 = lvl6 = None
         if int(lvl.level) == 4:
             lvl4 = lvl.description_1
+            lvl5 = lvl6 = None
+        if int(lvl.level) == 5:
+            lvl5 = lvl.description_1
+            lvl6 = None
+        if int(lvl.level) == 6:
+            lvl6 = lvl.description_1
+
         lvl_1.append(lvl1)
         lvl_2.append(lvl2)
         lvl_3.append(lvl3)
         lvl_4.append(lvl4)
-    return lvl_1, lvl_2, lvl_3, lvl_4
+        lvl_5.append(lvl5)
+        lvl_6.append(lvl6)
+    return lvl_1, lvl_2, lvl_3, lvl_4, lvl_5, lvl_6
 
 
 def import_avz_data(path_read: str, path_save: str) -> pd.DataFrame:
@@ -118,12 +129,14 @@ def import_avz_data(path_read: str, path_save: str) -> pd.DataFrame:
     df['din_txt'] = din_txt_list
     df['breadcrumb'] = breadcrumb_list
 
-    lvl_1, lvl_2, lvl_3, lvl_4 = lvl_headers(df[['level', 'description_1']])
+    lvl_1, lvl_2, lvl_3, lvl_4, lvl_5, lvl_6 = lvl_headers(df[['level', 'description_1']])
 
     df['lvl1'] = lvl_1
     df['lvl2'] = lvl_2
     df['lvl3'] = lvl_3
     df['lvl4'] = lvl_4
+    df['lvl5'] = lvl_5
+    df['lvl6'] = lvl_6
 
     multiplier_list = []
     quantity_list = []
