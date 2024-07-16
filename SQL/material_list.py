@@ -49,23 +49,36 @@ def material_list(project: str, standard: str):
     # cut VARCHAR column to selected length
     df.to_csv(path_processed, index=False, sep=';')
 
-    df['fk_avz'] = None # added for blank col
-    df['fk_device_list'] = None # added for blank col
+    df['fk_avz'] = None  # added for blank col
+    df['fk_device_list'] = None  # added for blank col
     df['fk_wz'] = None  # added for blank col
 
+    general_sql.drop_table_rows(table_name,[[project]],['project'], column_type=['varchar'])  # usun stare wpisy
+    general_sql.drop_table_rows(table_name, [['18' + project]], ['project'], column_type=['varchar'])
+    general_sql.drop_table_rows(table_name, [['8'+project]], ['project'], column_type=['varchar'])
+    general_sql.drop_table_rows(table_name, [['9'+project]], ['project'], column_type=['varchar'])
     general_sql.insert_into_table(table_name, df, columns)
 
-project = '4503'
-material_list(project, "STAPS_single")
 
+# project = '4541'
+# material_list(project, "STAPS_single")
 
-
-
-# def import_many():
-#     many = ['4388', '4413', '4421', '4423','4431','4444','4473','4503','4547']
-#     for proj in many:
-#         print(proj)
-#         material_list(str(proj), "STAPS_single")
+def import_many():
+    many = ['2371', '4292']
+    # many = ['4336', '4337']
+    # many = ['4341', '4353']
+    # many = ['4354', '4355']
+    # many =  ['4362', '4382']
+    # many = ['4388', '4413']
+    # many = ['4421', '4432']
+    # many = ['4433', '4444']
+    # many = ['4450', '4453']
+    # many = ['4454', '4468']
+    # many = ['4471', '4473']
+    # many = ['4497', '4499']
+    for proj in many:
+        print(proj)
+        material_list(str(proj), "STAPS_single")
 #
 #
-# import_many()
+import_many()

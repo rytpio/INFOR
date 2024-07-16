@@ -35,13 +35,14 @@ def nrc_sieve(ktxt, fzvon) -> str:
     nrc_ktxt_list = ref_lists.material_list_nrc_ktxt
 
     func_list_in_str = lambda text, list_: any(filter(lambda x: x in text, list_))
-    if str(fzvon) == '0':
-        return "NRC"
-    elif func_list_in_str(str(ktxt), nrc_ktxt_list):
-        return "NRC"
+    if func_list_in_str(str(ktxt), nrc_ktxt_list):
+        x = "NRC"
     else:
-        return "M"
+        x = "M"
+        if str(fzvon) == '0':
+            x = "fz0"
 
+    return x
 
 def group_position_sieve(order: str, stadler_id: str, price: str, group_orderd_list: list) -> bool:
     """ Grupppenpostion do oflagowania na poziomie importu materiallisty 1. Gruppenposition scenariusz-jest jako
@@ -178,6 +179,6 @@ def import_infor_data(project: str, standard: str, path_material: str, path_save
     df_material = df_material.fillna('')
 
     if path_save:
-        df_material.to_excel(path_save, index=False)  # chyba się coś przywiesza 4503; 4499
+        df_material.to_csv(path_save, index=False)  # chyba się coś przywiesza 4503; 4499
 
     return df_material

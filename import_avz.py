@@ -101,7 +101,8 @@ def import_avz_data(path_read: str, path_save: str) -> pd.DataFrame:
 
     df.astype(file_import_map.avz_col_type_dict, copy=True)
     df.sort_values(by=['root_article', 'avz_struct_index', 'level', 'position_number'], inplace=True)
-
+    df = df.drop_duplicates(subset=[
+        'avz_struct_index'])  # usun duplikaty; AVZ zrzuca wszystkie wersje dokumentacji; po avz_struct_index można rozróżnić
     breadcrumb_list = []
     breadcrumb = []
     din_list = []

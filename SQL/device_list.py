@@ -2,7 +2,7 @@ import pandas as pd
 from dicts_n_lists import reference_map
 from dicts_n_lists import file_import_map
 from SQL import general_sql
-
+import re
 
 def device_list(project: str):
     """"""
@@ -72,8 +72,10 @@ def device_list(project: str):
     # df_len = df.applymap (lambda x: 'NOTOK' if len(str(x)) > 255 else 'OK')
     # df_len.to_excel(r'C:\Users\rytpio\Desktop\Projekty bieżące\APPARATELISTE\apcheck.xlsx',index=False)
     df = df.applymap(lambda x: x[:254] if len(str(x)) > 255 else x)  # zetnij do 255 znaków
+    #df['stadler_id'] = df['stadler_id'].apply(lambda x: str(x).replace("_x000D_", ""))
+    df['stadler_id'] = df['stadler_id'].apply(lambda x: re.match(r"^ *\d[\d ]*$", str(x)).group(0))
 
-    general_sql.drop_table_rows(table_name,[project],['project'], column_type=['varchar'])  # usun stare wpisy
+    general_sql.drop_table_rows(table_name,[[project]],['project'], column_type=['varchar'])  # usun stare wpisy
 
     # for col in columns.keys():
     #     col_val = str(columns.get(col))
@@ -86,5 +88,5 @@ def device_list(project: str):
 
     #general_sql.get_table(table_name, True)
 
-project = '4503'
+project = '4556'
 device_list(project)

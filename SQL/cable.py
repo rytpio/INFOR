@@ -47,7 +47,7 @@ def cable_data():
     columns = reference_map.sql_col.get(table_name)
     fk_columns = reference_map.sql_fk_col.get(table_name)
 
-    #general_sql.drop_table(table_name)
+    general_sql.drop_table_content(table_name)
     #general_sql.create_table(table_name, table_name, columns)  # | fk_columns)
 
     df = pd.read_excel(path)
@@ -105,6 +105,6 @@ def cable_relationship():
 
 # for x in ['4382', '4355', '4421', '4423', '4433', '4444', '4468', '4541', '4542', '4547', '4577', '4388']:
 #     cable_quantity(x)
-cable_quantity('4503')
+# cable_quantity('4541')
 # cable_relationship()
-#cable_data()
+cable_data()

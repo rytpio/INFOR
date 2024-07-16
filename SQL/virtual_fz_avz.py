@@ -297,6 +297,9 @@ def avz_matlist_setup(project: str, fz: str):
         price_eur_lst.append(price_eur)
         price_eur_sum_lst.append(price_eur_sum)
 
+    #TODO: Brakuje limitu znaków na tworzone na podstawie order i supplier dla wielu zamówień (specki, srubki etc.)
+
+
     #print(y, len(order_lst), len(supplier_lst), len(price_lst), len(we_lst))
     #46 list out of 46- something doesnt' work in series
     df_purchased['order'] = pd.Series(order_lst).values
@@ -333,7 +336,7 @@ def avz_matlist_setup(project: str, fz: str):
 
     #import to mat_fz_avz_knot list
     general_sql.drop_table_rows('avz_mat_knot', [[project], [fz]],
-                                ['project', 'fz'], column_type=[['varchar'],['']])  #usun stare wpisy
+                                ['project', 'fz'], column_type=['varchar',''])  #usun stare wpisy // lub [['varchar'],['']]
 
     df_mat_knot = df[['project', 'id', 'breadcrumb', 'purchase_level', 'purchased_status_exact',
                       'purchased_status_general', 'order', 'supplier_y', 'price', 'currency',
@@ -344,13 +347,14 @@ def avz_matlist_setup(project: str, fz: str):
     df_mat_knot['fz'] = fz
     df_mat_knot['fk_avz'] = None
 
+    df_mat_knot = df_mat_knot.applymap(lambda x: x[:1200] if len(str(x)) > 1200 else x)  # zetnij do 1200 znaków ostatnie
     general_sql.insert_into_table('avz_mat_knot', df_mat_knot, sql_import_map.avz_mat_knot_sql_col_dict)
 
-    general_sql.update_fk(['avz_mat_knot'], 'avz', 'fk_avz', project, 'id',
-                          'avz_id')  # ten sam plik powinno się dać wygenerować
+    # general_sql.update_fk(['avz_mat_knot'], 'avz', 'fk_avz', project, 'id',
+    #                       'avz_id')  # ten sam plik powinno się dać wygenerować
 
 
-project = '4503'
+project = '4423'
 fz = '1'
 create_fz_avz(project, fz)
 avz_matlist_setup(project, fz)

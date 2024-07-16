@@ -36,14 +36,18 @@ def avz(project: str) -> None:
     df['fk_wz'] = None  # null only for future reference
 
     df = df.applymap(lambda x: x[:255] if len(str(x)) > 255 else x)  # zetnij do 255 znaków
-    # general_sql.drop_table_content(table_name) #usun stare wpisy
+
+
+    #usun poprzednie
+    general_sql.drop_table_rows(table_name, [[project]], ['project'], column_type=['varchar'])
     general_sql.insert_into_table(table_name, df, columns)
 
 
     # general_sql.get_table(table_name)
 
-
-avz('4503')
+x_list = ["4431", "4503", "4541", "4547", "4556",]
+for x in x_list:
+    avz(x)
 
 # Milesteine1 - Wgranie wszystkiego do SQL !ok
 # Milesteine2 - Proste zrzuty jako widoki dla backend !ok

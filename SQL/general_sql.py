@@ -92,6 +92,8 @@ def drop_table_rows(table_name: str, ref_list: list, column: list, column_type: 
         else:
             bag = [ref_list[i]]
 
+            #TODO: Dodać ten bag gdzieś :D?
+
         for x in ref_list[column.index(y)]:  # need list otherwise take 1 element and divides into subelements
             column_type_x = column_type[column.index(y)]
             if column_type_x != "":
@@ -403,6 +405,22 @@ def get_dataset(table_name: str, col_list: list) -> pd.DataFrame:
     conn.close()
     return table
 
+
+def get_query(query: str, col_list: list) -> pd.DataFrame:
+    conn = connect()
+    cursor = conn.cursor()
+    cols = ','.join(list(col_list))
+    command_get = query
+    try:
+        cursor.execute(command_get)
+        conn.commit()
+        table = pd.DataFrame(cursor.fetchall(), columns=col_list)
+    except (Exception, psycopg2.DatabaseError) as error:
+        print('Error: %s' % error)
+        return pd.DataFrame()
+    conn.close()
+    return table
+
     # # #Add fk key
     # table_name_src = 'infor_matlist'
     # column_name = 'project_stadler_id' #'mnr'
@@ -437,6 +455,35 @@ def get_dataset(table_name: str, col_list: list) -> pd.DataFrame:
     # conn.commit()
 
 
+def update_based_on_partial_string(target_table_name:str, set_col:str, category:str, condition_col:str, partial_str:str
+                                   ,excluded_str_lst:list)->None:
+    conn = connect()
+    cursor = conn.cursor()
+    try:
+        if len(excluded_str_lst) > 1:
+            query_list = str.join("", [f" and not LOWER({target_table_name}.{condition_col}) like '%{x}%'" for x in
+                                       excluded_str_lst])
+
+            query = (f"UPDATE {target_table_name} SET {set_col} = '{category}' "
+                     f"WHERE LOWER({target_table_name}.{condition_col}) like '%{partial_str}%'") + query_list
+
+            # query2 = (f"SELECT * FROM {target_table_name} "
+            #          f"WHERE LOWER({target_table_name}.{condition_col}) like '%{partial_str}%'") + query_list
+        else:
+            query = (f"UPDATE {target_table_name} SET {set_col} = '{category}' "
+                     f"WHERE LOWER({target_table_name}.{condition_col}) like '%{partial_str}%'")
+
+        # cursor.execute(query2)
+        # conn.commit()
+        # x = cursor.fetchall()
+
+        cursor.execute(query)
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print('Error: %s' % error)
+
+    return None
+
 def run_query(query: str) -> pd.DataFrame:
     conn = connect()
     cursor = conn.cursor()
@@ -449,3 +496,4 @@ def run_query(query: str) -> pd.DataFrame:
         return pd.DataFrame()
     conn.close()
     return table
+

@@ -9,14 +9,14 @@ def avz_knot(project: str) -> None:
     file_path = reference_map.file_path_dicts.get(project).get(table_name)
 
     # sheets = pd.ExcelFile(file_path).sheet_names
-    df = pd.read_excel(file_path)
+    df = pd.read_excel(file_path, sheet_name='knot')
     df['project'] = project
     df['fk_avz'] = None
 
     #general_sql.drop_table(table_name)
     #general_sql.create_table(table_name, table_name, sql_import_map.avz_knot_sql_col_dict)
 
-    general_sql.drop_table_rows(table_name, [project], ['project'], column_type=['varchar'])  # usun stare wpisy
+    general_sql.drop_table_rows(table_name, [[project]], ['project'], column_type=['varchar'])  # usun stare wpisy
     general_sql.insert_into_table(table_name, df, sql_import_map.avz_knot_sql_col_dict)
 
     #print(general_sql.get_table(table_name))

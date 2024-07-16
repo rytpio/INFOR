@@ -50,6 +50,6 @@ def wz_struktur_staps(project: str, project_location: str):  # tylko zrzut "nur 
     general_sql.get_table(table_name)
 
 
-project = '4503'
+project = '4541'
 wz_struktur_staps(project, 'STAPS')
 

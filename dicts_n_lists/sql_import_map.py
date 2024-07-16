@@ -191,6 +191,16 @@ material_list_device_list_relationship_fk_sql_col_dict = {
                                  'CASCADE ON UPDATE CASCADE'
 }
 
+material_list_leftover_sql_col_dict = {
+    'project': 'VARCHAR(25)',
+    'order_id': 'VARCHAR(100)',
+    'bg_set': 'VARCHAR(8)',
+    'group_mask': 'VARCHAR(255)',
+    'should_be_included': 'VARCHAR(10)',
+    'leftover_Acomp': 'VARCHAR(100)',
+    'stadler_id': 'VARCHAR(50)'
+}
+
 # ////////////// Struct/WZ
 wz_staps_sql_col_dict = {
     'level': 'INTEGER',
