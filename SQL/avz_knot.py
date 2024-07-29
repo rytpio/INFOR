@@ -22,7 +22,7 @@ def avz_knot(project: str) -> None:
     #print(general_sql.get_table(table_name))
 
 
-project = '4503'
+project = '4541'
 avz_knot(project)
 # general_sql.update_fk(['avz_knot'], 'avz', 'fk_avz', project, 'breadcrumb',
 #                       'avz_breadcrumb') ## jeśli breadcrumb się pokrywa to nie ma sensu; chyba że fk_key

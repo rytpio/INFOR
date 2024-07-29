@@ -15,7 +15,7 @@ def material_leftovers(project: str):
                                              'project', project)
     df_dev['src'] = 'dev'
     df_dev = df_dev[['stadler_id', 'group_mask', 'src']].drop_duplicates()
-    df_dev['stadler_id'] = df_dev['stadler_id'].apply(lambda x: str(x).replace("_x000D_", " "))
+    df_dev['stadler_id'] = df_dev['stadler_id'].apply(lambda x: str(x).replace("_x000D_", ""))
 
 
     col_list_avz_knot = list(sql_import_map.avz_knot_sql_col_dict.keys())
@@ -44,8 +44,8 @@ def material_leftovers(project: str):
     def list_to_str(x, limit: bool) -> str:
         x = list(dict.fromkeys(x))
         x_out = ''
-        if len(x) > 3 and limit:
-            return "UNIVERSAL_PART"  #add limit for more than 3
+        if len(x) > 6 and limit:
+            return "UNIVERSAL_PART"  #add limit for more than 6
         elif len(x) > 0:
             x_out = str.join(",", [str(y) for y in x])
         else:
@@ -67,21 +67,26 @@ def material_leftovers(project: str):
              "FROM material_list "
              f"WHERE material_list.project = '{project}' "
              "ORDER BY material_list.order_id ASC")
+
     query_col_list = ['project', 'stadler_id', 'order_id']
     df_matlist = general_sql.get_query(query, query_col_list)
-    # df_matlist.to_excel(r'C:\Users\rytpio\Desktop\Projekty bieżące\DATA\MATERIAL_LIST_LEFTOVER\df_matlist_1.xlsx',
-    #                              index=False)
+
     df_matlist = pd.merge(left=df_matlist, right=df_group_mask, how='left',
                           left_on='stadler_id', right_on='stadler_id', copy=True)
 
-    #smear on order
+    #add according to stadler id and order and then only smear on order data
     #take all group_masks assigned to order and make list assign to order itself
-    df_matlist = df_matlist[['order_id', 'group_mask']].drop_duplicates()
-    df_matlist = df_matlist.groupby('order_id')['group_mask'].agg(lambda x: list(x)).reset_index()
-    df_matlist['group_mask'] = df_matlist['group_mask'].apply(lambda x: list_to_str(x, False))
+    df_matlist = df_matlist[['stadler_id', 'order_id', 'group_mask']].drop_duplicates()
+    # df_matlist_stadler_id = df_matlist.groupby('stadler_id', 'order_id')['group_mask'].agg(
+    #     lambda x: list(x)).reset_index()  # Tutaj grupuje po zamówieniach
+    df_matlist_order_id = df_matlist.groupby('order_id')['group_mask'].agg(lambda x: list(x)).reset_index() #Tutaj grupuje po zamówieniach
 
-    df_matlist.to_excel(r'C:\Users\rytpio\Desktop\Projekty bieżące\DATA\MATERIAL_LIST_LEFTOVER\df_matlist_2.xlsx',
-                                 index=False)
+    #df_matlist_stadler_id['group_mask'] = df_matlist_stadler_id['group_mask'].apply(lambda x: list_to_str(x, False))
+    df_matlist_order_id['group_mask'] = df_matlist_order_id['group_mask'].apply(lambda x: list_to_str(x, False))
+
+
+    # df_matlist.to_excel(r'C:\Users\rytpio\Desktop\Projekty bieżące\DATA\MATERIAL_LIST_LEFTOVER\df_matlist_2.xlsx',
+    #                              index=False)
 
     query_2 = ("SELECT DISTINCT "
     "CAST(material_list.unit_price AS FLOAT) / CAST(material_list.unit_price_basis AS FLOAT) * SUM(CAST(material_list.quantity_per_fz AS FLOAT)) as \"order_sum\","
@@ -109,14 +114,14 @@ def material_leftovers(project: str):
     df_matlist_leftover = general_sql.get_query(query_2, query_2_col_list)
     #df_matlist_leftover.to_excel(r'C:\Users\rytpio\Desktop\Projekty bieżące\DATA\MATERIAL_LIST_LEFTOVER\df_matlist_leftover_1.xlsx', index=False)
 
-    print(query_2)
-    df_matlist_leftover = pd.merge(left=df_matlist_leftover, right=df_matlist, left_on='order_id', right_on='order_id',
+    #supply only non-0 matlist-leftover
+    df_matlist_leftover = pd.merge(left=df_matlist_leftover, right=df_matlist_order_id, left_on='order_id', right_on='order_id',
                                    how='left', copy=True).drop_duplicates(subset=['order_id', 'stadler_id'])
     df_matlist_leftover['single_group'] = df_matlist_leftover['group_mask'].apply(lambda x: len(str(x).split(',')) == 1)
-    print(df_matlist_leftover)
 
 
-    df_matlist_leftover.to_excel(r'C:\Users\rytpio\Desktop\Projekty bieżące\DATA\MATERIAL_LIST_LEFTOVER\df_matlist_leftover_2.xlsx',
+
+    df_matlist_leftover.to_excel(f'C:\\Users\\rytpio\\Desktop\\Projekty bieżące\\DATA\\MATERIAL_LIST_LEFTOVER\\{project}_leftover_draft2.xlsx',
                                  index=False)
 
 
@@ -126,4 +131,6 @@ def material_leftovers(project: str):
 # filter out all not cable/avz/dev/ktl/bossard
 
 
-material_leftovers('4556')
+material_leftovers('4541')
+
+#TODO: Need to place "empty" positions in case of not yet bought material example. 1-15 L-4541 Sarajevo vs 16-25 Sarajevo

@@ -145,7 +145,8 @@ def insert_into_table(table_name: str, df: pd.DataFrame, columns: dict) -> bool:
     #     tuples.append(tuple(x))
     # tuples = set(tuples)
     # tuples = list(tuples)
-    tuples = list(set([tuple(x) for x in df.to_numpy()]))
+    #tuples = list(set([tuple(x) for x in df.to_numpy()])) #usuwa duplikaty :S; w materialliscie wystepuja duplikaty występują duplikaty
+    tuples = list([tuple(x) for x in df.to_numpy()])
     cols = ','.join(list(df.columns))
     query = f'INSERT INTO {table_name}({cols}) VALUES ({",".join(["%s"] * len(df.columns))})'
 
@@ -456,21 +457,28 @@ def get_query(query: str, col_list: list) -> pd.DataFrame:
 
 
 def update_based_on_partial_string(target_table_name:str, set_col:str, category:str, condition_col:str, partial_str:str
-                                   ,excluded_str_lst:list)->None:
+                                   ,excluded_str_lst:list, project:str)->None:
     conn = connect()
     cursor = conn.cursor()
     try:
         if len(excluded_str_lst) > 1:
             query_list = str.join("", [f" and not LOWER({target_table_name}.{condition_col}) like '%{x}%'" for x in
                                        excluded_str_lst])
-
-            query = (f"UPDATE {target_table_name} SET {set_col} = '{category}' "
+            if project != '':
+                query = (f"UPDATE {target_table_name} SET {set_col} = '{category}' "
+                         f"WHERE project='{project}' and LOWER({target_table_name}.{condition_col}) like '%{partial_str}%'") + query_list
+            else:
+                query = (f"UPDATE {target_table_name} SET {set_col} = '{category}' "
                      f"WHERE LOWER({target_table_name}.{condition_col}) like '%{partial_str}%'") + query_list
 
             # query2 = (f"SELECT * FROM {target_table_name} "
             #          f"WHERE LOWER({target_table_name}.{condition_col}) like '%{partial_str}%'") + query_list
         else:
-            query = (f"UPDATE {target_table_name} SET {set_col} = '{category}' "
+            if project != '':
+                query = (f"UPDATE {target_table_name} SET {set_col} = '{category}' "
+                     f"WHERE project='{project}' and LOWER({target_table_name}.{condition_col}) like '%{partial_str}%'")
+            else:
+                query = (f"UPDATE {target_table_name} SET {set_col} = '{category}' "
                      f"WHERE LOWER({target_table_name}.{condition_col}) like '%{partial_str}%'")
 
         # cursor.execute(query2)

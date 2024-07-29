@@ -81,7 +81,7 @@ def import_struktur(project: str, standard: str, path_read: str, path_save: str)
     df_strukt['lvl3'] = pd.Series(lvl_3)
     df_strukt['project'] = project
 
-    def get_car(x):  # zrobione pod strukture BLS; zrobic abstrakcje przed uzyciem do innych projektow
+    def get_car(x):  # zrobione pod strukture BLS; zrobic abstrakcje przed użyciem do innych projektow
 
         if 'Wagon ' in x:
             result = x[6:7]  # zalozenie ze wagon jest 1-literowy, nazwy są stale;

@@ -304,8 +304,11 @@ file_path_dicts = {
              },
     '4541': {'material_list_raw': f'{default_data_path}\\MATERIAL_LIST\\4541_MATERIAL_LIST.xlsx',  # new - not full
              'material_list_processed': f'{default_data_path}\\MATERIAL_LIST\\4541_MATERIAL_LIST_EXPLODED.csv',
+             'material_list_leftover': f'{default_data_path}\\MATERIAL_LIST_LEFTOVER\\4541_leftover.xlsx',
              'avz_raw': f'{default_data_path}\\AVZ\\4541_AVZ_raw.csv',
              'avz_processed': f'{default_data_path}\\AVZ\\4541_AVZ_processed.xlsx',
+             'avz_knot': f'{default_data_path}\\AVZ_KNOT\\4541_knot.xlsx',  # recznie przyporzadkowane knot
+             'fz_mat_avz_knot': f'{default_data_path}\\AVZ_knots\\4541_AVZ_knot.xlsx',  # pozycje cen dla kazdego fz
              'wz_raw': f'{default_data_path}\\WZ\\InforStruktur4541_01erNEIN.xlsx',
              'wz_processed': f'{default_data_path}\\WZ\\4541_WZ.xlsx',
              'device_list': f'{default_data_path}\\DEVICE_LIST\\4541_DEVICE_LIST.xlsx',
