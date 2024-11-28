@@ -3,6 +3,7 @@ from psycopg2 import DatabaseError
 
 import general_sql
 
+#TODO: JEST ok ew- zmienić tylko żeby zapisywało w logi
 
 def test_for_doubled_rows():
     """

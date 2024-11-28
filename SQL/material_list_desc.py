@@ -2,6 +2,7 @@ import pandas as pd
 import general_sql
 from dicts_n_lists import sql_import_map
 
+#TODO: Wyciągniecia z SQL realizować poprzez Pythona, PowerBI czy ręcznie ?
 
 def device_list_description(project: str, fz: int) -> None:
     """

@@ -492,7 +492,7 @@ def update_based_on_partial_string(target_table_name:str, set_col:str, category:
 
     return None
 
-def run_query(query: str) -> pd.DataFrame:
+def run_query_get(query: str) -> pd.DataFrame:
     conn = connect()
     cursor = conn.cursor()
     try:
@@ -505,3 +505,14 @@ def run_query(query: str) -> pd.DataFrame:
     conn.close()
     return table
 
+def run_query_set(query: str) -> pd.DataFrame:
+    conn = connect()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(query)
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print('Error: %s' % error)
+        return pd.DataFrame()
+    conn.close()
+    return None

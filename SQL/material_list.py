@@ -42,26 +42,27 @@ def material_list(project: str, standard: str):
 
     # general_sql.drop_table_content(table_name)  # usun stare wpisy
     df = df.applymap(lambda x: x[:255] if len(str(x)) > 255 else x)  # cut characters to 255
-    # TODO: initially would be best if during file import length from sql_column
-    #  get's imported and column is cutted accordingly
-    # for col in sql_cols:
-    # if if VARCHAR in string then get () from VARCHAR
-    # cut VARCHAR column to selected length
+    # TODO: Logowanie zcietych znaków
     df.to_csv(path_processed, index=False, sep=';')
 
     df['fk_avz'] = None  # added for blank col
     df['fk_device_list'] = None  # added for blank col
     df['fk_wz'] = None  # added for blank col
 
-    general_sql.drop_table_rows(table_name,[[project]],['project'], column_type=['varchar'])  # usun stare wpisy
+    df['dev_mask'] = None  # added for blank col
+    df['avz_mask'] = None  # added for blank col
+    df['leftover_mask'] = None  # added for blank col
+    df['group_mask'] = None  # added for blank col
+
+    general_sql.drop_table_rows(table_name, [[project]], ['project'], column_type=['varchar'])  # usun stare wpisy
     general_sql.drop_table_rows(table_name, [['18' + project]], ['project'], column_type=['varchar'])
-    general_sql.drop_table_rows(table_name, [['8'+project]], ['project'], column_type=['varchar'])
-    general_sql.drop_table_rows(table_name, [['9'+project]], ['project'], column_type=['varchar'])
+    general_sql.drop_table_rows(table_name, [['8' + project]], ['project'], column_type=['varchar'])
+    general_sql.drop_table_rows(table_name, [['9' + project]], ['project'], column_type=['varchar'])
 
     general_sql.insert_into_table(table_name, df, columns)
 
 
-project = '4541'
+project = '4444'
 material_list(project, "STAPS_single")
 
 # def import_many():

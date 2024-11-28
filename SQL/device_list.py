@@ -4,6 +4,7 @@ from dicts_n_lists import file_import_map
 from SQL import general_sql
 import re
 
+
 def device_list(project: str):
     """"""
     table_name = 'device_list'
@@ -13,7 +14,6 @@ def device_list(project: str):
     col_change_dict = file_import_map.device_dict_project.get(project).get('col_change_dict')
     col_complete_list = file_import_map.device_dict_project.get(project).get('col_complete_list')
     col_cutout_list = file_import_map.device_dict_project.get(project).get('col_cutout_list')
-
 
     translate_dict = {'.': '_',
                       '/': '_',
@@ -72,10 +72,11 @@ def device_list(project: str):
     # df_len = df.applymap (lambda x: 'NOTOK' if len(str(x)) > 255 else 'OK')
     # df_len.to_excel(r'C:\Users\rytpio\Desktop\Projekty bieżące\APPARATELISTE\apcheck.xlsx',index=False)
     df = df.applymap(lambda x: x[:254] if len(str(x)) > 255 else x)  # zetnij do 255 znaków
-    #df['stadler_id'] = df['stadler_id'].apply(lambda x: str(x).replace("_x000D_", ""))
-    df['stadler_id'] = df['stadler_id'].apply(lambda x: re.match(r"^ *\d[\d ]*$", str(x)).group(0))
+    #TODO: Logowanie zcietych pozycji
+    ##df['stadler_id'] = df['stadler_id'].apply(lambda x: str(x).replace("_x000D_", ""))
+    #df['stadler_id'] = df['stadler_id'].apply(lambda x: re.match(r"^ *\d[\d ]*$", str(x)).group(0)) #only if new lines in file
 
-    general_sql.drop_table_rows(table_name,[[project]],['project'], column_type=['varchar'])  # usun stare wpisy
+    general_sql.drop_table_rows(table_name, [[project]], ['project'], column_type=['varchar'])  # usun stare wpisy
 
     # for col in columns.keys():
     #     col_val = str(columns.get(col))
@@ -84,9 +85,9 @@ def device_list(project: str):
     #         df[col] = df[col].apply(lambda x: x[:col_len] if len(str(x)) > col_len else x)
 
     general_sql.insert_into_table(table_name, df, columns)
-
-
+    #TODO: Test kompletnosci SQL
     #general_sql.get_table(table_name, True)
 
-project = '4556'
+
+project = '4444'
 device_list(project)

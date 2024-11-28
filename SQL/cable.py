@@ -17,12 +17,10 @@ def cable_quantity(project: str):
     df.dropna(subset=['stadler_id'], inplace=True)
     df = df.convert_dtypes()  # remove issues with psycopg2 "can't adapt type 'numpy.int64'"
     df['project'] = project
-    # DOTO: SQL zapytanie pobierające dane tylko 1 producenta
-    # DOTO: SQL zestawienie produktów w matlist (rozgraniczyć na podstawie dostawcy H+S, L+S-jak inny to H+S)
-    # zamówionych i suma szacowanych
 
     # general_sql.drop_table_content(table_name) #usun stare wpisy
     general_sql.insert_into_table(table_name, df, columns)
+    #TODO: TEST kopmletnosci
 
     # general_sql.update_table_fk_one_step('cable_quantity', 'materialliste',
     #                                      list(reference_map.sql_col.get('cable_quantity').keys()),
@@ -52,7 +50,7 @@ def cable_data():
 
     df = pd.read_excel(path)
     df.drop_duplicates(subset=['stadler_id', 'supplier'],
-                       inplace=True)  # TODO: duble, ewentualnie do wylapania i raportu
+                       inplace=True)  # TODO: duble, ewentualnie do wylapania i raportu TEST
     df.dropna(subset=['stadler_id'], inplace=True)
 
     # df_cable = general_sql.get_table_col('cable_quantity',
@@ -61,7 +59,7 @@ def cable_data():
 
     # general_sql.drop_table_content(table_name) #usun stare wpisy
     general_sql.insert_into_table(table_name, df, columns)
-
+    #TODO: Test kompletnosci po SQL
     general_sql.get_table(table_name)
 
 
@@ -101,10 +99,10 @@ def cable_relationship():
     general_sql.insert_into_table(table_name, df_relationship, columns)
 
     general_sql.get_table(table_name)
-
+    #TODO: Test komletnosci i logowanie
 
 # for x in ['4382', '4355', '4421', '4423', '4433', '4444', '4468', '4541', '4542', '4547', '4577', '4388']:
 #     cable_quantity(x)
-# cable_quantity('4541')
+cable_quantity('4557')
 # cable_relationship()
-cable_data()
+#cable_data()

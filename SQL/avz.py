@@ -35,6 +35,8 @@ def avz(project: str) -> None:
     df['fk_ktl_kanban_stag'] = df['stadler_id'].apply(lambda x: general_sql.one_step_fk(df_z, 'stadler_id', x))
     df['fk_wz'] = None  # null only for future reference
 
+    #TODO: Zrobić logowanie wartosci powyzej 255 znaków podczas importu
+    #TODO: Dopisać testy dla importu 1. Suma kontrola ilości wierszy; 2. Suma kontrolna jakichś wartości mają zgadzać się na poczatku i po wczytuaniu do bazy
     df = df.applymap(lambda x: x[:255] if len(str(x)) > 255 else x)  # zetnij do 255 znaków
 
 
@@ -45,18 +47,6 @@ def avz(project: str) -> None:
 
     # general_sql.get_table(table_name)
 
-x_list = ["4431", "4503", "4541", "4547", "4556",]
+x_list = ["4557"]
 for x in x_list:
     avz(x)
-
-# Milesteine1 - Wgranie wszystkiego do SQL !ok
-# Milesteine2 - Proste zrzuty jako widoki dla backend !ok
-# Milesteine3 - Zrzut materiału-testy!ok
-# Milesteine4 - wyjątki i obsługa (grouppositions etc.) !!!!
-# Milesteine5 - Ilości i porównywanie !!!
-# Milesteine6 - Wgrywanie innych projektów !!
-# Milesteine7 - Testy funkcji i refactor kodu !ok
-# Milesteine8 - Wrzucenie interfejsu graficznego 0
-# Milesteine9 - Postawienie na serwerze 0
-# Milesteine10 - Migracja na serwer 0
-# Mielsteine11 - opcjonalnie poziomy dostępu 0

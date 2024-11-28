@@ -354,7 +354,7 @@ def avz_matlist_setup(project: str, fz: str):
     #                       'avz_id')  # ten sam plik powinno się dać wygenerować
 
 
-project = '4541'
+project = '4444'
 fz = '1'
 create_fz_avz(project, fz)
 avz_matlist_setup(project, fz)

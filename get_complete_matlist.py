@@ -24,6 +24,13 @@ def fast_matlist(project: str):
     #     index=False, sep=';')
     #
 
+
+#TODO: Wydzielić i przenieść SQL
+#TODO: Jeśli mają być śrubki wydzielane do komponentu to należy zrobić produkt z AVZ i przypisać,
+#nie będzie jednak wtedy w bazie SQL jako komplet - lub też wydzielać jako "UNIVERSAL_PART"
+#Scenariusz 1. Jest tylko w jednym złożeniu jednak to UNIVERSAL - ?
+#Scenario 2. Jest w dwóch złożeniach - moze być profil lub inne - wtedy to uniwersal czy czesc o zawężonym użytu
+#Scenario 3.
 def complete_matlist(project: str):
     #import materiallist - complete
     #get leftover keys
@@ -86,7 +93,7 @@ def complete_matlist(project: str):
     df_matlist = general_sql.get_query(query, query_col_list)
 
     #add ap group mask to matlist
-    df_dev.rename(columns={'group_mask':'dev_mask'}, inplace=True)
+    df_dev.rename(columns={'group_mask': 'dev_mask'}, inplace=True)
     # df_matlist = pd.merge(left=df_matlist, right=df_dev, how='left',
     #                       left_on='stadler_id', right_on='stadler_id', copy=True)
 
@@ -128,22 +135,35 @@ def complete_matlist(project: str):
 
     query_2_col_list = list(sql_import_map.material_list_sql_col_dict.keys())
     df_matlist_leftover = general_sql.get_query(query_2, ['id'] + query_2_col_list)
+    df_matlist_leftover.drop(columns=['dev_mask','avz_mask','leftover_mask', 'group_mask'], inplace=True)
 
-    print(df_matlist_leftover.shape[0])
+    #print(df_matlist_leftover.shape[0])
     df_matlist_leftover = pd.merge(left=df_matlist_leftover, right=df_dev.drop_duplicates('stadler_id'), how='left',
                           left_on='stadler_id', right_on='stadler_id', validate="m:1")
-    print(df_matlist_leftover.shape[0])
+    #print(df_matlist_leftover.shape[0])
     df_matlist_leftover = pd.merge(left=df_matlist_leftover, right=df_avz_knot.drop_duplicates('stadler_id'), how='left',
                           left_on='stadler_id', right_on='stadler_id', validate="m:1")
-    print(df_matlist_leftover.shape[0])
+    #print(df_matlist_leftover.shape[0])
     df_matlist_leftover = pd.merge(left=df_matlist_leftover, right=df_leftover.drop_duplicates('order_id'), left_on='order_id', right_on='order_id',
                                    how='left', validate="m:1")#.drop_duplicates() ## here it's problem of overreach?
-    print(df_matlist_leftover.shape[0])
+    #print(df_matlist_leftover.shape[0])
+    def gr_mask(dev,avz,leftover):
+        if str(dev)!="nan":
+            return dev
+        elif str(avz)!="nan":
+            return avz
+        else:
+            return leftover
+
+    df_matlist_leftover['group_mask'] = df_matlist_leftover.apply(lambda row: gr_mask(row.dev_mask, row.avz_mask, row.leftover_mask), axis=1)
+    #1* dev_mask; 2*_avz_mask; 3* leftover_mask
+
 
     #df_matlist_leftover['single_group'] = df_matlist_leftover['group_mask'].apply(lambda x: len(str(x).split(',')) == 1)
 
     #TODO: ADD test ilosć wierszy po scaleniu z group mask powinna sie rownac ilości wierszy w materialliscie
     #TODO: Suma cen powinna być taka sama przed i po scaleniu
+
 
     df_matlist_leftover.to_excel(
         f'C:\\Users\\rytpio\\Desktop\\Projekty bieżące\\DATA\\MATERIAL_LIST_LEFTOVER\\df_matlist_5_{project}.xlsx',
@@ -152,5 +172,5 @@ def complete_matlist(project: str):
 
 #print(df)
 
-complete_matlist('4541')
-#fast_matlist('4541')
+complete_matlist('4444')
+#fast_matlist('4503')

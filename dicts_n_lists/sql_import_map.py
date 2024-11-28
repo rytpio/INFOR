@@ -1,7 +1,3 @@
-# TODO: TYPY zmiennych SQL dla poszczególnych tabel
-# TODO: zweryfikować Constraint-ryzyko przy usuwaniu tabel usunięcia fk_ do nich w innych tabelach
-# -konieczność przemielenia od nowa kluczy
-
 # /////////////// UNNASSIGNED.
 fz_sql_col_dict = {
     'CONSTRAINT fk_material_list_id':
@@ -158,7 +154,11 @@ material_list_sql_col_dict = {
     'fk_cable_quantity': 'INTEGER NULL',
     'fk_wz': 'INTEGER NULL',  # no relation only for check
     'fk_avz': 'INTEGER NULL',  # no relation only for check
-    'fk_device_list': 'INTEGER NULL'  # no relation only for check
+    'fk_device_list': 'INTEGER NULL',  # no relation only for check
+    'dev_mask': 'VARCHAR(255)', # for leftover later fulfillment
+    'avz_mask': 'VARCHAR(255)', # for leftover later fulfillment
+    'leftover_mask': 'VARCHAR(255)', # for leftover later fulfillment
+    'group_mask': 'VARCHAR(255)' # for leftover later fulfillment
 }
 material_list_sql_col_fk_dict = {
     'CONSTRAINT fk_bossard_kanban_staps': 'FOREIGN KEY(fk_bossard_kanban_staps) REFERENCES '
@@ -332,6 +332,7 @@ device_list_sql_col_dict = {
     'stk_m': 'FLOAT',
     'stk_n': 'FLOAT',
     'stk_o': 'FLOAT',
+    'stk_pp': 'FLOAT',
     'stk_sum': 'FLOAT',
     'bg': 'VARCHAR(100)',
     'din_1': 'VARCHAR(1)',

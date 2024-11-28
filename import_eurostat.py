@@ -1,6 +1,7 @@
 from pyjstat import pyjstat
 import pandas as pd
 from dicts_n_lists import ref_lists
+import json
 
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
@@ -27,8 +28,11 @@ def eurostat():
           f'&nace_r2={str("&nace_r2=").join(indicator_list)}'
 
     dataset = pyjstat.Dataset.read(url)
-    df = dataset.write('dataframe')
-    df = pd.DataFrame(df)
+    dataset = dataset.write('jsonstat')
+    #df = pyjstat.generate_df(dataset,'label')
+    #df = pd.DataFrame(dataset)
+    json_data = json.loads(dataset)
+    df = pd.read_json(json_data, "record")
     df.to_csv(r'C:\Users\rytpio\Desktop\Projekty bieżące\EuroSTAT_x.csv', index=False, sep=';')#, encoding='iso-8859-1') # has special character accents uoa
     df[['Year', 'Quarter']] = df.apply(lambda x: str(x.Time).split('-'), result_type="expand", axis=1)
     df.dropna(subset=['Year'])

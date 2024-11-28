@@ -2,6 +2,7 @@ import pandas as pd
 from SQL import general_sql
 from dicts_n_lists import sql_import_map
 
+#TODO: Unormować sytuacje
 
 def material_leftovers(project: str):
     """
@@ -127,10 +128,11 @@ def material_leftovers(project: str):
 
 # get materiallist all and interwind with group (unique order_stadler_id)
 # -> multiply for all order ID - flatten :O
+# if not fk_made then it will generate complete materialliste x AVZ
 # can be multi for some orders - take biggest
 # filter out all not cable/avz/dev/ktl/bossard
 
 
-material_leftovers('4541')
+material_leftovers('4444')
 
 #TODO: Need to place "empty" positions in case of not yet bought material example. 1-15 L-4541 Sarajevo vs 16-25 Sarajevo

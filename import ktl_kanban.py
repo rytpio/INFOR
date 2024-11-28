@@ -3,9 +3,9 @@ import os.path
 from dicts_n_lists import file_import_map
 import numpy as np
 
+
 #tested
 def import_ktlkanban(path_ktl_kanban_list: str, path_save: str):
-
     df_ktl_kanban = pd.read_excel(path_ktl_kanban_list, skiprows=2)
 
     df_ktl_kanban.columns = [str(x).replace("\n", "").strip() for x in df_ktl_kanban.columns]
@@ -27,8 +27,8 @@ def import_ktlkanban(path_ktl_kanban_list: str, path_save: str):
     if path_save:
         df_ktl_kanban.to_excel(os.path.join(path_save, r'test_ktl_kanban.xlsx'), index=False)
 
-
     return df_ktl_kanban
 
+
 import_ktlkanban(r'F:\Production\STAPS\22_C-materiał niesystemowy-KTL\KTL_KANBAN_V02.xlsb',
-                     r'C:\Users\rytpio\Desktop\Projekty bieżące\WZ')
+                 r'C:\Users\rytpio\Desktop\Projekty bieżące\WZ')

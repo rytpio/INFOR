@@ -48,8 +48,8 @@ def wz_struktur_staps(project: str, project_location: str):  # tylko zrzut "nur 
     general_sql.insert_into_table(table_name, df, columns)
 
     general_sql.get_table(table_name)
+    #TODO: Test SQL// dla testów SQL wybrać kolumny liczbowe poszczególnych zbiorów żeby zsumować jako suma kontrolna
 
-
-project = '4541'
+project = '4444'
 wz_struktur_staps(project, 'STAPS')
 

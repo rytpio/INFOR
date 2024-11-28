@@ -2,7 +2,7 @@ from dicts_n_lists import ref_lists
 from SQL import general_sql
 from psycopg2 import DatabaseError
 
-
+#TODO: Powinno być realizowane podczas importu; tutaj tylko jako dobicie - aktualizacja starych danych
 
 #Set everything to M as default
 def set_all_to_x(table_name:str, set_col:str, set_value:str, project:str):
@@ -56,7 +56,7 @@ def refresh_rest(project):
         general_sql.update_based_on_partial_string('material_list','nrc','BOSSARD',
                                                    'description_1', x, "",project)
 
-project='4541'
+project='4355'
 set_all_to_x('material_list','nrc','M',project)
 refresh_chemie(project)
 refresh_outsourcing(project)
